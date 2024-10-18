@@ -28,6 +28,10 @@ async def on_ready():
     except Exception as e:
         print(e)
 
+    # napisz na kanale "1250873886426402937" że bot jest online
+    channel = await bot.fetch_channel(1250873886426402937)
+    await channel.send("jebac czarnych")
+
     # await setup_blackjack_game(bot) # <------------------------------------ THIS NEW
 
     # await channel.send("bot is online")
