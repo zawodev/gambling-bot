@@ -1,0 +1,11 @@
+-statystyka od ilosci danych tipow, ilosci otrzymanych tipow
+-statystyka ilosci otrzymanych kredytow, łacznej kwocie kredytow
+
+-gambling battles
+-system rang (ranking po ilości gamblowania)
+-sklep
+-sterowanie reakcjami
+-bilans dealera (dzis, tydzien, overall)
+-staty per osobe
+-png na wyjściu jakieś nwm (pillow, templatki html render pdf)
+-pozyczki dla gamblerów (1min bana za każdy pożyczony żeton)
