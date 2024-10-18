@@ -477,7 +477,7 @@ def setup_blackjack_commands(new_bot):
 
         player_instance.chips -= amount
 
-        await interaction.response.send_message("Postawiono zakład o wysokości " + str(amount) + "$!", ephemeral=True)
+        await interaction.response.send_message("gowno gowno jebac czarnych " + str(amount) + "$!", ephemeral=True)
         await place_bet(interaction, player_instance, amount)
 
 
