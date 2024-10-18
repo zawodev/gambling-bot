@@ -502,7 +502,7 @@ def setup_blackjack_commands(new_bot):
             else:
                 await interaction.response.send_message("Przekroczyłeś 21, automatyczne zakończenie ruchu!", ephemeral=True)
         else:
-            await interaction.response.send_message("Dobierasz kartę!", ephemeral=True)
+            await interaction.response.send_message("jebac zycdow!", ephemeral=True)
 
         await update_table(interaction.channel, 0)
 
