@@ -3,7 +3,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import os
 
-from old_blackjack import setup_blackjack_commands
+from gambling_bot.main import setup
 
 # ======================== DISCORD BOT ========================
 
@@ -21,6 +21,8 @@ async def on_ready():
     # ustaw status bota jako niewidoczny
     # await bot.change_presence(status=discord.Status.invisible)
 
+    await setup(bot)
+
     print(f'bot zalogowany jako {bot.user}')
     try:
         synced = await bot.tree.sync()
@@ -28,13 +30,9 @@ async def on_ready():
     except Exception as e:
         print(e)
 
-    # napisz na kanale "1250873886426402937" że bot jest online
-    channel = await bot.fetch_channel(1250873886426402937)
-    await channel.send("bot is online")
-
-    # await setup_blackjack_game(bot) # <------------------------------------ THIS NEW
-
-    # await channel.send("bot is online")
+    # send message to channel with id 1250873886426402937
+    #channel = await bot.fetch_channel(1250873886426402937)
+    #await channel.send("bot is online")
 
 # ======================== MAREK ========================
 
@@ -42,7 +40,7 @@ async def on_ready():
 
 # ======================== BLACKJACK ========================
 
-setup_blackjack_commands(bot)
+# setup_blackjack_commands(bot)
 
 # ======================== RUN DISCORD BOT ========================
 
