@@ -11,6 +11,12 @@
 -pozyczki dla gamblerów (1min bana za każdy pożyczony żeton)
 
 
+- komendy do resetowania wszystkiego
+- więcej modyfikacji stołu/dealera
+- komenda do zmiany dealera na stołach
+- a3 panel view powinien się wyświetlać na koniec każdej gry od nowa
+- a3 panel powinien się updatować po wciśnięciu przycisków do betowania
+
 
 BUGS:
 - ✅forfeit nie zwraca kasy

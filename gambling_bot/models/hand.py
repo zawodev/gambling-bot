@@ -132,5 +132,4 @@ class Hand:
 
     def calculate_winnings(self, dealer_hand):
         self.hand_result = self.calculate_result(dealer_hand)
-        print(self.hand_result, self.bet)
         return self.bet * float(self.hand_result)

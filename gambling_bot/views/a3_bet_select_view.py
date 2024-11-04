@@ -6,11 +6,13 @@ from gambling_bot.casino import casino
 
 
 async def display(interaction: discord.Interaction, table: Table):
-    name = table.table_data.data['name']
-    description = table.table_data.__str__()
-    embed = discord.Embed(title=name, description=description, color=0xffaff0)
+    player_profile = casino.get_player_profile_with_id(str(interaction.user.id))
+    name = player_profile.profile_data['name']
+    description = f"{player_profile.profile_data['chips']}$"
+    color = int(player_profile.profile_data['color'])
+    embed = discord.Embed(title=name, description=description, color=color)
     view = BetSelectView(table)
-    await interaction.response.send_message(embed=embed, view=view)
+    await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
 
 
 def _create_button_callback(table: Table, bet: int):
@@ -32,6 +34,7 @@ class BetSelectView(discord.ui.View):
                 style=discord.ButtonStyle.blurple, custom_id=bet_unq_id
             )
             button.callback = _create_button_callback(table, int(bet))
+            button.style = discord.ButtonStyle.gray
             self.add_item(button)
 
     @discord.ui.button(label="ready", style=discord.ButtonStyle.green, custom_id="ready")

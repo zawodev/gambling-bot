@@ -18,9 +18,10 @@ class BlackjackTableView(TableView):
 
         # create embed for table type
         embed = discord.Embed(
-            title=self.table.table_data.data['name'],
-            description=self.table.table_data['description'],
-            color=0xffaff0
+            title=self.table.table_data['name'],
+            description=f"{self.table.table_data['description']}\n"
+                        f"bet: [{self.table.table_data['min_bet']}$ - {self.table.table_data['max_bet']}]$",
+            color=self.table.table_data['color']
         )
         embeds.append(embed)
 
@@ -49,7 +50,7 @@ class BlackjackTableView(TableView):
 
         return embeds
 
-    @discord.ui.button(label="hit", style=discord.ButtonStyle.green, custom_id="hit")
+    @discord.ui.button(label="hit", style=discord.ButtonStyle.gray, custom_id="hit")
     async def hit(self, interaction: discord.Interaction, button: discord.ui.Button):
         if self.table.active_game_message is not None:
             self.table.hit(interaction.user.id)
@@ -59,7 +60,7 @@ class BlackjackTableView(TableView):
         else:
             await interaction.response.defer()
 
-    @discord.ui.button(label="stand", style=discord.ButtonStyle.red, custom_id="stand")
+    @discord.ui.button(label="stand", style=discord.ButtonStyle.gray, custom_id="stand")
     async def stand(self, interaction: discord.Interaction, button: discord.ui.Button):
         if self.table.active_game_message is not None:
             self.table.stand(interaction.user.id)
@@ -69,7 +70,7 @@ class BlackjackTableView(TableView):
         else:
             await interaction.response.defer()
 
-    @discord.ui.button(label="double", style=discord.ButtonStyle.blurple, custom_id="double")
+    @discord.ui.button(label="double", style=discord.ButtonStyle.gray, custom_id="double")
     async def double(self, interaction: discord.Interaction, button: discord.ui.Button):
         if self.table.active_game_message is not None:
             self.table.double(interaction.user.id)
@@ -89,7 +90,7 @@ class BlackjackTableView(TableView):
         else:
             await interaction.response.defer()
 
-    @discord.ui.button(label="forfeit", style=discord.ButtonStyle.danger, custom_id="forfeit")
+    @discord.ui.button(label="forfeit", style=discord.ButtonStyle.red, custom_id="forfeit")
     async def forfeit(self, interaction: discord.Interaction, button: discord.ui.Button):
         if self.table.active_game_message is not None:
             self.table.forfeit(interaction.user.id)
