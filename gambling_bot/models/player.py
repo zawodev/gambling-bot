@@ -48,8 +48,6 @@ class Player:
 
     def deal(self, card1, card2):
         self.hands[0].deal(card1, card2)
-
-    def ready(self):
         self.is_ready = True
 
     def add_bet(self, amount):

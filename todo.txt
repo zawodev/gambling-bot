@@ -11,9 +11,32 @@
 -pozyczki dla gamblerów (1min bana za każdy pożyczony żeton)
 
 
+- komendy do resetowania wszystkiego
+- więcej modyfikacji stołu/dealera
+- komenda do zmiany dealera na stołach
+- a3 panel view powinien się wyświetlać na koniec każdej gry od nowa
+- a3 panel powinien się updatować po wciśnięciu przycisków do betowania
+- /drop database
+
 
 BUGS:
 - ✅forfeit nie zwraca kasy
 - ✅tytuł stołu przed ekranem stołu
 - ✅po splitcie jak pierwsza reka ma busta to mozesz w nieskonczonosc dobiera
 - ✅drugi bet w splicie
+- jak wszyscy dadzą ready to wciąż da się dołączyć
+
+-main_view [play, my stats, ranking]
+-game_select_view [blackjack, poker] - tytuł bota, wersja bota
+-table_select_view [table1, table2] - dobierz do 21, cos tam wygraj wybierz stół z jednego poniżej: table1: minbet: 0, max bet:1 (wszystko to w opisie) [table które są w trakcie gry na szaro]
+-bet_select_view [ready, 10, 100, 500, reset] - tablename, playername, chips, bet 
+-blackjack_view [hit, stand, split, double, forfeit] - (blackjack info)
+-play_again_view [play again, exit]
+
+class view(discord.view):
+def __init__(interaction)
+	view = get_view()
+	embed = get_embed()
+	interaction.edit_message(embed, self)
+
+-jeśli nikt się długo nie ruszał na stole to odwiesić??? idk najpierw to wyżej

@@ -163,3 +163,4 @@ cython_debug/
 
 # KEY='[KEY_HERE]'
 *.env
+/gambling_bot/data/data.json

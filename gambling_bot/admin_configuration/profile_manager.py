@@ -2,6 +2,8 @@ import discord
 from gambling_bot.casino import casino
 from gambling_bot.models.profile.profile import Profile
 
+# ---------------- PLAYER ----------------
+
 def create_player_profile(user_id: str, user_name: str):
     if user_id not in casino.player_profiles:
         player_profile = Profile({'name': user_name}, 'profiles', 'players', user_id)
@@ -13,7 +15,11 @@ def get_player_profile_with_id(player_profile_id):
             return profile
     return None
 
+def create_player_profiles_in_guild(guild: discord.Guild):
+    for member in guild.members:
+        create_player_profile(str(member.id), member.display_name)
 
+# ---------------- DEALER ----------------
 
 def create_dealer_profile(name: str):
     if name not in casino.dealer_profiles:
@@ -30,10 +36,7 @@ def remove_dealer_profile(name: str):
 def create_default_dealers():
     names = ['Marek', 'Romper', 'Extreme', 'Gambler', 'WYGRAŁEM',
              'NIE', 'Fenomenalnie', 'Jogurt', 'Dealer', 'Krupier',
-             'Wojtek', 'Pięcia', 'Nice Cnie', 'Jakub', 'Janek']
+             'Wojtek', 'Pięcia', 'Nice Cnie', 'Jakub', 'Janek',
+             'Obsrany', 'Jaja', 'Degenerat', 'Denaturat']
     for name in names:
         create_dealer_profile(f"Dealer {name}")
-
-def create_player_profiles_in_guild(guild: discord.Guild):
-    for member in guild.members:
-        create_player_profile(str(member.id), member.display_name)

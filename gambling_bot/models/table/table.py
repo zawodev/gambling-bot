@@ -47,16 +47,6 @@ class Table:
 
             self.dealer.save()
 
-
-    def ready(self, player_id):
-        player: Player = self.get_player(player_id)
-        if player is not None and not player.is_ready:
-            player.deal(self.dealer.deck.draw(), self.dealer.deck.draw())
-            player.ready()
-
-        if self.all_ready():
-            self.dealer.hand.is_ready = True
-
     def get_player(self, player_id):
         player_id = str(player_id)
         for player in self.players:

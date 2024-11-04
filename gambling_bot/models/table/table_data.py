@@ -7,6 +7,8 @@ class TableData(DictData):
             'name': "Table",
             'description': "Table description",
             'bets': [10],
+            'color': 14844833,
+            'min_bet': 10,
             'max_bet': 1000,
             'chips_placed': 0,
         }

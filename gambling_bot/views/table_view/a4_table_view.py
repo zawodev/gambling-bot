@@ -1,15 +1,14 @@
 import discord
 
-from gambling_bot.casino import casino
 from gambling_bot.models.table.table import Table
 from gambling_bot.models.table.table_type import TableType
-from gambling_bot.views.table_view.blackjack_table_view import BlackjackTableView
+from gambling_bot.views.blackjack_table_view import BlackjackTableView
 from gambling_bot.views.table_view.poker_table_view import PokerTableView
-from gambling_bot.views.table_view.table_view import TableView
 
 
 async def display(interaction: discord.Interaction, table: Table):
-
+    pass
+"""
     view: TableView
 
     table_type = str(table.table_data.path[-2])
@@ -29,3 +28,4 @@ async def display(interaction: discord.Interaction, table: Table):
         table.start_game(msg)
 
     await interaction.response.defer()
+"""
