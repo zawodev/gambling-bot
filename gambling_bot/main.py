@@ -1,7 +1,7 @@
 import discord
 
 from gambling_bot.models.table.table_type import TableType
-from gambling_bot.views import a1_game_select_view
+from gambling_bot.views.main_view import MainView
 from gambling_bot.casino import casino
 from gambling_bot.admin_configuration import table_configuration
 from gambling_bot.admin_configuration.profile_manager import (create_player_profile, create_dealer_profile,
@@ -21,7 +21,9 @@ async def setup(bot):
     @bot.tree.command(name="play", description="rozpocznij grę w kasynie")
     async def play(interaction: discord.Interaction):
         create_player_profiles_in_guild(interaction.guild)
-        await a1_game_select_view.display(interaction)
+        message = await interaction.response.send_message("temp")
+        main_view = MainView()
+        await main_view.display(message)
 
     # ------- ON INTERACTION -------
 

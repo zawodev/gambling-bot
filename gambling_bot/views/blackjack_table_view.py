@@ -2,8 +2,7 @@ from gambling_bot.models.table.blackjack_table import BlackJackTable
 from gambling_bot.views.table_view.table_view import TableView
 import discord
 from gambling_bot.models.player import Player
-from gambling_bot.views import a4_table_view
-import random
+from gambling_bot.views.table_view import a4_table_view
 
 from gambling_bot.core.hand_values import HandValue
 
