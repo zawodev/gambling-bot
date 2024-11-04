@@ -8,7 +8,7 @@ from gambling_bot.main import setup
 # ======================== DISCORD BOT ========================
 
 load_dotenv()
-token = os.getenv('DISCORD_TOKEN_TEST')
+token = os.getenv('DISCORD_TOKEN')
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="/", intents=intents)

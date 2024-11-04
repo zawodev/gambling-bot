@@ -2,8 +2,8 @@ import discord
 from gambling_bot.views.view import View
 
 class PlayAgainView(View):
-    def __init__(self, table):
-        super().__init__()
+    def __init__(self, message: discord.Message, table):
+        super().__init__(message)
         self.table = table
 
     def create_buttons(self):
@@ -37,9 +37,11 @@ class PlayAgainView(View):
     # --------- callbacks ---------
 
     async def play_again(self, interaction: discord.Interaction, button: discord.ui.Button):
-        self.table.play_again(interaction.user.id)
-        await self.table.display(interaction)
+        #self.table.play_again(interaction.user.id)
+        #await self.table.display(interaction)
+        pass
 
     async def quit(self, interaction: discord.Interaction, button: discord.ui.Button):
-        self.table.quit(interaction.user.id)
-        await self.table.display(interaction)
+        #self.table.quit(interaction.user.id)
+        #await self.table.display(interaction)
+        pass

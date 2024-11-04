@@ -8,6 +8,14 @@ class BlackJackTable(Table):
     def __init__(self, dealer, data, *path):
         super().__init__(dealer, data, *path)
 
+    def deal(self, player_id):
+        player: Player = self.get_player(player_id)
+        if player is not None and not player.is_ready:
+            player.deal(self.dealer.deck.draw(), self.dealer.deck.draw())
+
+        if self.all_ready():
+            self.dealer.hand.is_ready = True
+
     def hit(self, player_id):
         player: Player = self.get_player(player_id)
         if player.is_ready and not player.all_hands_stand():

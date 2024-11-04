@@ -20,16 +20,14 @@ async def setup(bot):
 
     @bot.tree.command(name="play", description="rozpocznij grę w kasynie")
     async def play(interaction: discord.Interaction):
-        create_player_profiles_in_guild(interaction.guild)
-        message = await interaction.response.send_message("temp")
-        main_view = MainView()
-        await main_view.display(message)
+        main_view = MainView(interaction) # noqa
+        await main_view.send()
 
     # ------- ON INTERACTION -------
 
     @bot.event
     async def on_interaction(interaction: discord.Interaction):
-        create_player_profile(str(interaction.user.id), interaction.user.display_name)
+        create_player_profiles_in_guild(interaction.guild)
 
     # ------- ADMIN COMMANDS -------
 

@@ -3,8 +3,8 @@ from gambling_bot.views.view import View
 from gambling_bot.views.game_select_view import GameSelectView
 
 class MainView(View):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, interaction):
+        super().__init__(interaction)
 
     def create_buttons(self):
         # play again button
@@ -43,14 +43,14 @@ class MainView(View):
 
     # --------- callbacks ---------
 
-    async def play(self, interaction: discord.Interaction, button: discord.ui.Button):
-        view = GameSelectView()
-        await view.display(interaction.message)
+    async def play(self, interaction: discord.Interaction):
+        view = GameSelectView(self.interaction)
+        await view.edit(interaction)
 
-    async def stats(self, interaction: discord.Interaction, button: discord.ui.Button):
+    async def stats(self, interaction: discord.Interaction):
         raise NotImplementedError
         #interaction.response.defer()
 
-    async def ranking(self, interaction: discord.Interaction, button: discord.ui.Button):
+    async def ranking(self, interaction: discord.Interaction):
         raise NotImplementedError
         #interaction.response.defer()

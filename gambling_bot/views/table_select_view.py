@@ -3,9 +3,10 @@ from gambling_bot.views.view import View
 from gambling_bot.views.bet_select_view import BetSelectView
 
 class TableSelectView(View):
-    def __init__(self, tables):
-        super().__init__()
+    def __init__(self, interaction, tables, table_type):
         self.tables = tables
+        self.table_type = table_type
+        super().__init__(interaction)
 
     def create_buttons(self):
         buttons = []
@@ -15,7 +16,7 @@ class TableSelectView(View):
                 style=discord.ButtonStyle.gray,
                 custom_id=str(table.table_data.path)
             )
-            button.callback = self.select_table(table)
+            button.callback = self.select_table(table, self.table_type)
             buttons.append(button)
         return buttons
 
@@ -29,8 +30,8 @@ class TableSelectView(View):
 
     # --------- callbacks ---------
 
-    def select_table(self, table):
+    def select_table(self, table, table_type):
         async def button_callback(interaction: discord.Interaction):
-            view = BetSelectView(table)
-            await view.display(interaction.message)
+            view = BetSelectView(self.interaction, table, table_type)
+            await view.edit(interaction)
         return button_callback
