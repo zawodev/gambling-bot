@@ -30,13 +30,6 @@ def create_dealer_profile(name: str):
         dealer_profile = Profile({'name': name}, 'profiles', 'dealers', name)
         casino.dealer_profiles.append(dealer_profile)
 
-def remove_dealer_profile(name: str):
-    for profile in casino.dealer_profiles:
-        if profile.profile_data['name'] == name:
-            profile.profile_data.delete()
-            casino.dealer_profiles.remove(profile)
-            return
-
 def create_default_dealers():
     names = ['Marek', 'Romper', 'Extreme', 'Gambler', 'WYGRAŁEM',
              'NIE', 'Fenomenalnie', 'Jogurt', 'Dealer', 'Krupier',
@@ -49,7 +42,9 @@ def create_default_dealers():
 
 def create_default_tables():
     pass
-    """
+
+
+"""
     bets = ['10', '100', '500']
     blackjack_table = casino.add_table('blackjack', 'blackjack_table', bets)
     poker_table = casino.add_table('poker', 'poker_table', bets)
@@ -58,7 +53,7 @@ def create_default_tables():
     poker_table.dealer = casino.get_random_dealer()
     blackjack_table.save()
     poker_table.save()
-    """
+    
 
 async def add_table(interaction: discord.Interaction, table_type: TableType, table_name: str, bets: list):
     # można się pozbyć tego ifa jeśli zrównasz klasy oraz dasz type jako argument zamiast ręcznie
@@ -91,3 +86,4 @@ async def remove_table(interaction: discord.Interaction, table_type: str, table_
         await interaction.response.send_message(f"table type not found", ephemeral=True)
         return
     await interaction.response.send_message("removed table", ephemeral=True)
+"""

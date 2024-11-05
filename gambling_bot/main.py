@@ -5,9 +5,7 @@ from gambling_bot.models.table.table_type import TableType
 from gambling_bot.views.main_view import MainView
 from gambling_bot.casino import casino
 from gambling_bot.admin import database_update
-from gambling_bot.admin.default_dict_data import (create_default_dealers,
-                                                  create_default_tables,
-                                                  create_default_player_profiles_in_guild)
+from gambling_bot.admin.default_dict_data import create_default_player_profiles_in_guild
 
 
 # both commands: bet
@@ -16,8 +14,6 @@ from gambling_bot.admin.default_dict_data import (create_default_dealers,
 
 async def setup(bot):
     # casino setup
-    create_default_dealers()
-    create_default_tables()
     casino.setup(bot)
 
     # ------- ON INTERACTION -------
@@ -40,5 +36,5 @@ async def setup(bot):
     # ------- ADMIN COMMANDS -------
     # commands for adding, removing and modyfing data in database from given path
     @bot.tree.command(name="db", description="zarządzaj bazą danych")
-    async def db(interaction: discord.Interaction, operation: OperationType, path: str, data: str = None):
+    async def db(interaction: discord.Interaction, operation: OperationType, path: str = None, data: str = None):
         await database_update.db(interaction, operation, path, data)
