@@ -31,7 +31,7 @@ async def on_ready():
         print(e)
 
     # send message to channel with id 1250873886426402937
-    channel = await bot.fetch_channel(1250873886426402937)
+    channel = await bot.fetch_channel(1294787218581487656)
     await channel.send("bot 2.0 is online")
 
 # ======================== MAREK ========================
