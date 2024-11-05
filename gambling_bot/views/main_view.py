@@ -36,7 +36,7 @@ class MainView(View):
     def create_embeds(self):
         embed = discord.Embed(
             title="Casino Bot",
-            description=f"wersja: 0.49 alpha - experimental",
+            description=f"wersja: 0.51 alpha - experimental",
             color=discord.Color.orange()
         )
         return [embed]

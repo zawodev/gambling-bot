@@ -10,6 +10,7 @@ class Table:
         self.active_game_message = None
         self.players = []
         self.dealer = dealer
+        self.is_game_started = False
 
     def add_bet_player(self, player_profile: Profile, bet: int):
         player_id = player_profile.profile_data.path[-1]
@@ -20,7 +21,7 @@ class Table:
 
         bet = min(bet, player_profile.profile_data.data['chips'])
         bet = min(bet, self.table_data.data['max_bet'] - player.get_bet())
-        bet = max(bet, 0)
+        bet = max(bet, self.table_data.data['min_bet'] - player.get_bet())
 
         if not player.is_ready and player.has_chips(bet):
             player_profile.transfer_chips(self.dealer.profile, bet)
@@ -46,6 +47,12 @@ class Table:
                 player.save()
 
             self.dealer.save()
+
+    def check_all_ready(self):
+        if self.all_ready():
+            self.dealer.hand.is_ready = True
+            self.is_game_started = True
+
 
     def get_player(self, player_id):
         player_id = str(player_id)

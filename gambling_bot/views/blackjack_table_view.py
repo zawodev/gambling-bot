@@ -24,7 +24,7 @@ class BlackjackTableView(View):
         # hit button
         hit_button = discord.ui.Button(
             label="hit",
-            style=discord.ButtonStyle.green,
+            style=discord.ButtonStyle.gray,
             custom_id="hit"
         )
         hit_button.callback = self.hit
@@ -32,7 +32,7 @@ class BlackjackTableView(View):
         # stand button
         stand_button = discord.ui.Button(
             label="stand",
-            style=discord.ButtonStyle.red,
+            style=discord.ButtonStyle.gray,
             custom_id="stand"
         )
         stand_button.callback = self.stand
@@ -104,35 +104,41 @@ class BlackjackTableView(View):
     async def deal(self, interaction: discord.Interaction):
         self.table.deal(interaction.user.id)
         self.table.check_all_stands()
+        self.table.check_all_ready()
         await self.edit(interaction)
         self.table.check_end_game()
 
     async def hit(self, interaction: discord.Interaction):
         self.table.hit(interaction.user.id)
         self.table.check_all_stands()
+        self.table.check_all_ready()
         await self.edit(interaction)
         self.table.check_end_game()
 
     async def stand(self, interaction: discord.Interaction):
         self.table.stand(interaction.user.id)
         self.table.check_all_stands()
+        self.table.check_all_ready()
         await self.edit(interaction)
         self.table.check_end_game()
 
     async def double(self, interaction: discord.Interaction):
         self.table.double(interaction.user.id)
         self.table.check_all_stands()
+        self.table.check_all_ready()
         await self.edit(interaction)
         self.table.check_end_game()
 
     async def split(self, interaction: discord.Interaction):
         self.table.split(interaction.user.id)
         self.table.check_all_stands()
+        self.table.check_all_ready()
         await self.edit(interaction)
         self.table.check_end_game()
 
     async def forfeit(self, interaction: discord.Interaction):
         self.table.forfeit(interaction.user.id)
         self.table.check_all_stands()
+        self.table.check_all_ready()
         await self.edit(interaction)
         self.table.check_end_game()

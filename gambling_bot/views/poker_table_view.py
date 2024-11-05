@@ -24,7 +24,7 @@ class PokerTableView(View):
         # check button
         check_button = discord.ui.Button(
             label="check",
-            style=discord.ButtonStyle.green,
+            style=discord.ButtonStyle.gray,
             custom_id="check"
         )
         check_button.callback = self.check
@@ -32,7 +32,7 @@ class PokerTableView(View):
         # call button
         call_button = discord.ui.Button(
             label="call",
-            style=discord.ButtonStyle.green,
+            style=discord.ButtonStyle.gray,
             custom_id="call"
         )
         call_button.callback = self.call
@@ -40,7 +40,7 @@ class PokerTableView(View):
         # raise button
         raise_button = discord.ui.Button(
             label="raise",
-            style=discord.ButtonStyle.green,
+            style=discord.ButtonStyle.gray,
             custom_id="raise"
         )
         raise_button.callback = self.raise_
@@ -48,7 +48,7 @@ class PokerTableView(View):
         # fold button
         fold_button = discord.ui.Button(
             label="fold",
-            style=discord.ButtonStyle.red,
+            style=discord.ButtonStyle.gray,
             custom_id="fold"
         )
         fold_button.callback = self.fold
@@ -56,7 +56,7 @@ class PokerTableView(View):
         # all in button
         all_in_button = discord.ui.Button(
             label="all in",
-            style=discord.ButtonStyle.green,
+            style=discord.ButtonStyle.gray,
             custom_id="all_in"
         )
         all_in_button.callback = self.all_in
