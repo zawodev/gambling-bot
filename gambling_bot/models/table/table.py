@@ -44,9 +44,7 @@ class Table:
                     hand: Hand
                     winnings = int(hand.calculate_winnings(self.dealer.hand))
                     self.dealer.profile.transfer_chips(player.profile, winnings)
-                player.save()
 
-            self.dealer.save()
 
     def check_all_ready(self):
         if self.all_ready():
@@ -55,9 +53,8 @@ class Table:
 
 
     def get_player(self, player_id):
-        player_id = str(player_id)
         for player in self.players:
-            if player.profile.profile_data.path[-1] == player_id:
+            if player.profile.profile_data.path.split('/')[-1] == str(player_id):
                 return player
         return None
 

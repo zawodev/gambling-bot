@@ -16,9 +16,6 @@ class Player:
         self.split_used = False
         self.is_ready = False
 
-    def save(self):
-        self.profile.save()
-
     def __eq__(self, other):
         if isinstance(other, str):
             return self.profile.__eq__(other)

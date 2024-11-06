@@ -9,7 +9,7 @@ class Profile:
 
     def __eq__(self, other):
         if isinstance(other, str):
-            return self.profile_data.path[-1] == other
+            return self.profile_data.path == other
         elif isinstance(other, Profile):
             return self.profile_data.path == other.profile_data.path
         return False
@@ -18,8 +18,5 @@ class Profile:
         return self.profile_data['chips'] >= amount
 
     def transfer_chips(self, other, amount):
-        if self.has_chips(amount):
-            self.profile_data['chips'] -= amount
-            other.profile_data['chips'] += amount
-            return True
-        return False
+        self.profile_data['chips'] = self.profile_data['chips'] - amount
+        other.profile_data['chips'] = other.profile_data['chips'] + amount
