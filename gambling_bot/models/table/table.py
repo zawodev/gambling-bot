@@ -5,8 +5,8 @@ from gambling_bot.models.table.table_data import TableData
 from gambling_bot.models.hand import Hand
 
 class Table:
-    def __init__(self, dealer, data, *path):
-        self.table_data = TableData(data, *path)
+    def __init__(self, dealer, data, path):
+        self.table_data = TableData(data, path)
         self.active_game_message = None
         self.players = []
         self.dealer = dealer
@@ -19,9 +19,9 @@ class Table:
             player = Player(player_profile)
             self.players.append(player)
 
-        bet = min(bet, player_profile.profile_data.data['chips'])
-        bet = min(bet, self.table_data.data['max_bet'] - player.get_bet())
-        bet = max(bet, self.table_data.data['min_bet'] - player.get_bet())
+        bet = min(bet, player_profile.profile_data['chips'])
+        bet = min(bet, self.table_data['max_bet'] - player.get_bet())
+        bet = max(bet, self.table_data['min_bet'] - player.get_bet())
 
         if not player.is_ready and player.has_chips(bet):
             player_profile.transfer_chips(self.dealer.profile, bet)

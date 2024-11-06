@@ -2,6 +2,7 @@ import discord
 
 from gambling_bot.admin.operation_type import OperationType
 from gambling_bot.data.json_manager import load_data, save_data, remove_data, move_data
+from gambling_bot.casino import casino
 
 async def db(interaction: discord.Interaction, operation: OperationType, path: str = None, data: str = None):
     if operation == OperationType.REMOVE:
@@ -18,3 +19,6 @@ async def db(interaction: discord.Interaction, operation: OperationType, path: s
         await interaction.response.send_message(content=data, ephemeral=True)
     else:
         await interaction.response.send_message(f"operation not found", ephemeral=True)
+
+    # save new data to casino
+    casino.load_data()

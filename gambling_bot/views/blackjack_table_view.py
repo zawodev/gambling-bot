@@ -68,7 +68,7 @@ class BlackjackTableView(View):
 
         # create embed for table type
         embed = discord.Embed(
-            title=self.table.table_data.data['name'],
+            title=self.table.table_data['name'],
             description=self.table.table_data['description'],
             color=0xffaff0
         )
@@ -76,7 +76,7 @@ class BlackjackTableView(View):
 
         for player in self.table.players:
             player: Player
-            player_color = int(player.profile.profile_data.data['color'])
+            player_color = int(player.profile.profile_data['color'])
 
             for hand in player.hands:
                 hand_value = hand.value()

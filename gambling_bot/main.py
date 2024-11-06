@@ -6,6 +6,7 @@ from gambling_bot.views.main_view import MainView
 from gambling_bot.casino import casino
 from gambling_bot.admin import database_update
 from gambling_bot.admin.default_dict_data import create_default_player_profiles_in_guild
+from gambling_bot.admin.default_dict_data import create_default_dealers, create_default_tables
 
 
 # both commands: bet
@@ -14,13 +15,16 @@ from gambling_bot.admin.default_dict_data import create_default_player_profiles_
 
 async def setup(bot):
     # casino setup
-    casino.setup(bot)
+    casino.setup_bot(bot)
+    create_default_dealers()
+    create_default_tables()
+    casino.load_data()
 
     # ------- ON INTERACTION -------
 
     @bot.event
     async def on_interaction(interaction: discord.Interaction):
-        create_default_player_profiles_in_guild(interaction.guild)
+        create_default_player_profiles_in_guild(casino, interaction.guild)
 
     # ------- PLAYER COMMANDS -------
 

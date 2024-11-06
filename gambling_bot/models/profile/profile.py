@@ -5,7 +5,7 @@ class Profile:
         self.profile_data = ProfileData(data, path)
 
     def __str__(self):
-        return f'{self.profile_data.data.get('name')} has {self.profile_data.data.get('chips')}$'
+        return f'{self.profile_data['name']} has {self.profile_data['chips']}$'
 
     def __eq__(self, other):
         if isinstance(other, str):
@@ -14,15 +14,12 @@ class Profile:
             return self.profile_data.path == other.profile_data.path
         return False
 
-    def save(self):
-        self.profile_data.save()
-
     def has_chips(self, amount):
-        return self.profile_data.data.get('chips') >= amount
+        return self.profile_data['chips'] >= amount
 
     def transfer_chips(self, other, amount):
         if self.has_chips(amount):
-            self.profile_data.data['chips'] -= amount
-            other.profile_data.data['chips'] += amount
+            self.profile_data['chips'] -= amount
+            other.profile_data['chips'] += amount
             return True
         return False

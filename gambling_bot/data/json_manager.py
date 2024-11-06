@@ -11,6 +11,8 @@ def load_data(path=None):
     try:
         with open(DATA_FILE_NAME, 'r') as file:
             data = json.load(file)
+        if path is None:
+            return data
         keys = path.split('/')
         for key in keys:
             data = data.get(key, {})
