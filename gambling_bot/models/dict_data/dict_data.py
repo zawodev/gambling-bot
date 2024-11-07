@@ -2,9 +2,7 @@ from gambling_bot.data.json_manager import save_data, load_data
 
 class DictData:
     def __init__(self, default_data, data, path):
-
         self.path = path
-
         if not isinstance(data, dict):
             print("Warning: data provided is not a dictionary. Using default values instead.")
             data = {}

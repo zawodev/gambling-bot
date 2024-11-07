@@ -17,8 +17,9 @@ def create_default_player_profiles_in_guild(casino, guild: discord.Guild):
         create_player_profile(casino, str(member.id), member.display_name)
 
 def create_player_profile(casino, user_id: str, user_name: str):
-    if user_id not in casino.player_profiles:
-        player_profile = Profile({'name': user_name}, f'profiles/players/{user_id}')
+    path = f'profiles/players/{user_id}'
+    if path not in casino.player_profiles:
+        player_profile = Profile({'name': user_name}, path)
         casino.player_profiles.append(player_profile)
 
 # ---------------- DEALER ----------------

@@ -8,6 +8,7 @@ class Player:
     def __init__(self, profile: Profile):
         # self.name = name
         self.profile = profile
+        print(profile)
 
         # temporary, mid game class
         self.hands = [Hand()]  # Karty na każdą rękę

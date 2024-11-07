@@ -19,11 +19,7 @@ class Table:
             player = Player(player_profile)
             self.players.append(player)
 
-        bet = min(bet, player_profile.profile_data['chips'])
-        bet = min(bet, self.table_data['max_bet'] - player.get_bet())
-        bet = max(bet, self.table_data['min_bet'] - player.get_bet())
-
-        if not player.is_ready and player.has_chips(bet):
+        if not player.is_ready and player.has_chips(bet) and bet > 0:
             player_profile.transfer_chips(self.dealer.profile, bet)
             player.add_bet(bet)
 
