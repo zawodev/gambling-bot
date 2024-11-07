@@ -54,9 +54,13 @@ class BetSelectView(View):
             max_bet = self.table.table_data['max_bet']
             min_bet = self.table.table_data['min_bet']
 
-            new_bet = self.bet + add_bet
-            new_bet = min(new_bet, available_chips)
-            self.bet = max(min_bet, min(new_bet, max_bet))
+            self.bet += max(min_bet, add_bet)
+
+            if self.bet > available_chips:
+                self.bet = available_chips
+
+            if self.bet > max_bet:
+                self.bet = max_bet
 
             await self.edit(interaction)
         return button_callback
