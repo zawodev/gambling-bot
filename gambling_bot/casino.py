@@ -20,8 +20,6 @@ class Casino:
         self.dealer_profiles = [Profile(dealer_data, f'profiles/dealers/{dealer_key}')
                                 for dealer_key, dealer_data in load_data('profiles/dealers').items()]
 
-        print(self.player_profiles)
-
         self.available_dealers = [Dealer(profile) for profile in self.dealer_profiles]
         random.shuffle(self.available_dealers)
 

@@ -1,10 +1,14 @@
 import discord
+
+from gambling_bot.models.table.table_type import TableType
+from gambling_bot.views.bet_select_view import BetSelectView
 from gambling_bot.views.view import View
 
 class PlayAgainView(View):
-    def __init__(self, message: discord.Message, table):
-        super().__init__(message)
+    def __init__(self, interaction, table, prev_view):
         self.table = table
+        self.prev_view = prev_view
+        super().__init__(interaction)
 
     def create_buttons(self):
         # play again button
@@ -37,11 +41,7 @@ class PlayAgainView(View):
     # --------- callbacks ---------
 
     async def play_again(self, interaction: discord.Interaction, button: discord.ui.Button):
-        #self.table.play_again(interaction.user.id)
-        #await self.table.display(interaction)
-        pass
+        await self.prev_view.edit(interaction)
 
     async def quit(self, interaction: discord.Interaction, button: discord.ui.Button):
-        #self.table.quit(interaction.user.id)
-        #await self.table.display(interaction)
-        pass
+        raise NotImplementedError

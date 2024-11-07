@@ -50,7 +50,7 @@ class Hand:
     def bust(self):
         self.is_finished = True
 
-    def blackjack(self):
+    def blackjack(self): # niekoniecznie bo czasem więcej niż 2 karty
         self.is_finished = True
 
     # ------------- HAND ACTIONS -------------

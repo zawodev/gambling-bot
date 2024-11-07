@@ -4,11 +4,13 @@ from gambling_bot.core.hand_values import HandValue
 from gambling_bot.models.player import Player
 from gambling_bot.models.table.blackjack_table import BlackJackTable
 from gambling_bot.models.table.table_type import TableType
+from gambling_bot.views.play_again_view import PlayAgainView
 from gambling_bot.views.view import View
 
 class BlackjackTableView(View):
-    def __init__(self, interaction, table: BlackJackTable):
+    def __init__(self, interaction, table: BlackJackTable, back_view):
         self.table = table
+        self.prev_view = back_view
         super().__init__(interaction)
 
     def create_buttons(self):
@@ -142,3 +144,8 @@ class BlackjackTableView(View):
         self.table.check_all_ready()
         await self.edit(interaction)
         self.table.check_end_game()
+
+    async def on_end(self):
+        if self.table.all_stands():
+            view = PlayAgainView(self.interaction, self.table, self.prev_view)
+            await view.edit(self.interaction)

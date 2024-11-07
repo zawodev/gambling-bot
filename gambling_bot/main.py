@@ -35,7 +35,7 @@ async def setup(bot):
 
     @bot.tree.command(name="bet", description="postaw zakład")
     async def bet(interaction: discord.Interaction, table_type: TableType, table_name: str, bet_: int):
-        await casino.bet(interaction, table_type, table_name, bet_)
+        raise NotImplementedError
 
     # ------- ADMIN COMMANDS -------
     # commands for adding, removing and modyfing data in database from given path

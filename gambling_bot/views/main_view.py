@@ -1,4 +1,6 @@
 import discord
+
+from gambling_bot.views.stats_view import StatsView
 from gambling_bot.views.view import View
 from gambling_bot.views.game_select_view import GameSelectView
 
@@ -36,7 +38,7 @@ class MainView(View):
     def create_embeds(self):
         embed = discord.Embed(
             title="Casino Bot",
-            description=f"wersja: 0.51 alpha - experimental",
+            description=f"wersja: 0.53 alpha - experimental",
             color=discord.Color.orange()
         )
         return [embed]
@@ -44,12 +46,12 @@ class MainView(View):
     # --------- callbacks ---------
 
     async def play(self, interaction: discord.Interaction):
-        view = GameSelectView(self.interaction)
+        view = GameSelectView(self.interaction, self)
         await view.edit(interaction)
 
     async def stats(self, interaction: discord.Interaction):
-        raise NotImplementedError
-        #interaction.response.defer()
+        view = StatsView(self.interaction, self)
+        await view.edit(interaction)
 
     async def ranking(self, interaction: discord.Interaction):
         raise NotImplementedError

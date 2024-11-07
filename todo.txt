@@ -11,12 +11,12 @@
 -pozyczki dla gamblerów (1min bana za każdy pożyczony żeton)
 
 
-- komendy do resetowania wszystkiego
-- więcej modyfikacji stołu/dealera
-- komenda do zmiany dealera na stołach
+- ✅komendy do resetowania wszystkiego
+- ✅więcej modyfikacji stołu/dealera
+- ??? po co??? komenda do zmiany dealera na stołach
 - a3 panel view powinien się wyświetlać na koniec każdej gry od nowa
 - a3 panel powinien się updatować po wciśnięciu przycisków do betowania
-- /drop database
+- ✅/drop database
 
 
 BUGS:
@@ -42,3 +42,6 @@ def __init__(interaction)
 	interaction.edit_message(embed, self)
 
 -jeśli nikt się długo nie ruszał na stole to odwiesić??? idk najpierw to wyżej
+
+
+-!!! blackjack table view - dodaj ekran play again oraz wyczyść kod !!!!!!!!!!!!
