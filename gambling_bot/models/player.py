@@ -8,6 +8,7 @@ class Player:
     def __init__(self, profile: Profile):
         # self.name = name
         self.profile = profile
+        print(profile)
 
         # temporary, mid game class
         self.hands = [Hand()]  # Karty na każdą rękę
@@ -15,9 +16,6 @@ class Player:
 
         self.split_used = False
         self.is_ready = False
-
-    def save(self):
-        self.profile.save()
 
     def __eq__(self, other):
         if isinstance(other, str):

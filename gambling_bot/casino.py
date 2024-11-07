@@ -8,25 +8,30 @@ import random
 class Casino:
     def __init__(self):
         self.bot = None
+        self.player_profiles = []
+        self.dealer_profiles = []
+        self.available_dealers = []
+        self.blackjack_tables = []
+        self.poker_tables = []
 
-        self.player_profiles = [Profile(player_data, 'profiles', 'players', player_key)
-                                for player_key, player_data in load_data('profiles', 'players').items()]
-        self.dealer_profiles = [Profile(dealer_data, 'profiles', 'dealers', dealer_key)
-                                for dealer_key, dealer_data in load_data('profiles', 'dealers').items()]
-        self.available_dealers = None
-        self.blackjack_tables = None
-        self.poker_tables = None
+    def load_data(self):
+        self.player_profiles = [Profile(player_data, f'profiles/players/{player_key}')
+                                for player_key, player_data in load_data('profiles/players').items()]
+        self.dealer_profiles = [Profile(dealer_data, f'profiles/dealers/{dealer_key}')
+                                for dealer_key, dealer_data in load_data('profiles/dealers').items()]
 
-    def setup(self, bot):
-        self.bot = bot
+        print(self.player_profiles)
 
         self.available_dealers = [Dealer(profile) for profile in self.dealer_profiles]
         random.shuffle(self.available_dealers)
 
-        self.blackjack_tables = [BlackJackTable(self.get_random_dealer(), table_data, 'tables', 'blackjack', table_key)
-                                 for table_key, table_data in load_data('tables', 'blackjack').items()]
-        self.poker_tables = [PokerTable(self.get_random_dealer(), table_data, 'tables', 'poker', table_key)
-                             for table_key, table_data in load_data('tables', 'poker').items()]
+        self.blackjack_tables = [BlackJackTable(self.get_random_dealer(), table_data, f'tables/blackjack/{table_key}')
+                                 for table_key, table_data in load_data('tables/blackjack').items()]
+        self.poker_tables = [PokerTable(self.get_random_dealer(), table_data, f'tables/poker/{table_key}')
+                             for table_key, table_data in load_data('tables/poker').items()]
+
+    def setup_bot(self, bot):
+        self.bot = bot
 
     def get_random_dealer(self):
         dealer = self.available_dealers.pop()
@@ -35,7 +40,7 @@ class Casino:
 
     def get_player_profile_with_id(self, player_profile_id):
         for profile in self.player_profiles:
-            if profile.profile_data.path[-1] == player_profile_id:
+            if profile.profile_data.path.split('/')[-1] == player_profile_id:
                 return profile
         return None
 

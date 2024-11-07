@@ -4,7 +4,7 @@ from gambling_bot.models.dict_data.dict_data import DictData
 
 class ProfileData(DictData):
 
-    def __init__(self, data, *path):
+    def __init__(self, data, path):
         random_color = lambda: ((randint(128, 255) << 16) + (randint(128, 255) << 8) + randint(128, 255))
         default_data = {
             "name": 'Profile',
@@ -36,7 +36,7 @@ class ProfileData(DictData):
             "total_games_dates": {},
             "freebet_dates": {}
         }
-        super().__init__(default_data, data, *path)
+        super().__init__(default_data, data, path)
 
 
     def __str__(self):

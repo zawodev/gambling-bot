@@ -2,7 +2,7 @@ from gambling_bot.models.dict_data.dict_data import DictData
 
 class TableData(DictData):
 
-    def __init__(self, data, *path):
+    def __init__(self, data, path):
         default_data = {
             'name': "Table",
             'description': "Table description",
@@ -12,7 +12,7 @@ class TableData(DictData):
             'max_bet': 1000,
             'chips_placed': 0,
         }
-        super().__init__(default_data, data, *path)
+        super().__init__(default_data, data, path)
 
 
     def __str__(self):

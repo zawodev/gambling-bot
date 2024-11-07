@@ -1,8 +1,8 @@
 from gambling_bot.models.table.table import Table
 
 class PokerTable(Table):
-    def __init__(self, dealer, data, *path):
-        super().__init__(data, *path)
+    def __init__(self, dealer, data, path):
+        super().__init__(dealer, data, path)
         self.dealer = dealer
 
     def check(self, player_id):
