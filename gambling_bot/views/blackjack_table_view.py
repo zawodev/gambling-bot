@@ -105,10 +105,12 @@ class BlackjackTableView(View):
 
     async def deal(self, interaction: discord.Interaction):
         self.table.deal(interaction.user.id)
-        self.table.check_all_stands()
-        self.table.check_all_ready()
-        await self.edit(interaction)
-        self.table.check_end_game()
+        self.table.do_checks()
+        if self.table.all_stands():
+            view = PlayAgainView(self.interaction, self.table, self.prev_view)
+            await view.edit(self.interaction)
+        else:
+            await self.edit(interaction)
 
     async def hit(self, interaction: discord.Interaction):
         self.table.hit(interaction.user.id)

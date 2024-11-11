@@ -1,7 +1,5 @@
 import discord
 
-from gambling_bot.models.table.table_type import TableType
-from gambling_bot.views.bet_select_view import BetSelectView
 from gambling_bot.views.view import View
 
 class PlayAgainView(View):

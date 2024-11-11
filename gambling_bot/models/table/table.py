@@ -23,9 +23,11 @@ class Table:
             player_profile.transfer_chips(self.dealer.profile, bet)
             player.add_bet(bet)
 
-    def check_end_game(self):
-        if self.all_stands():
-            self.end_game()
+# ============ GAME ACTIONS ============
+
+    def do_checks(self):
+        self.check_all_ready()
+        self.check_all_stands()
 
     def check_all_stands(self):
         if self.all_stands():
@@ -40,13 +42,14 @@ class Table:
                     hand: Hand
                     winnings = int(hand.calculate_winnings(self.dealer.hand))
                     self.dealer.profile.transfer_chips(player.profile, winnings)
-
+            # self.finish_game()
 
     def check_all_ready(self):
         if self.all_ready():
             self.dealer.hand.is_ready = True
             self.is_game_started = True
 
+# ============ GETTERS ============
 
     def get_player(self, player_id):
         for player in self.players:
@@ -59,7 +62,7 @@ class Table:
     def start_game(self, game_message):
         self.active_game_message = game_message
 
-    def end_game(self):
+    def finish_game(self):
         self.active_game_message = None
         self.players = []
         self.dealer.init()
