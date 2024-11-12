@@ -23,7 +23,7 @@ class View(discord.ui.View):
         for button in self.create_buttons():
             self.add_item(button)
 
-    async def edit(self, new_interaction):
+    async def edit(self, new_interaction: discord.Interaction):
         self.refresh()
         message = await self.interaction.original_response()
         await message.edit(content="", embeds=self.embeds, view=self)

@@ -69,7 +69,7 @@ class BetSelectView(View):
         self.table.add_bet_player(self.player_profile, self.bet)
         match self.table_type:
             case TableType.BLACKJACK:
-                view = BlackjackTableView(self.interaction, self.table)
+                view = BlackjackTableView(self.interaction, self.table, self)
                 await view.edit(interaction)
             case TableType.POKER:
                 raise NotImplementedError

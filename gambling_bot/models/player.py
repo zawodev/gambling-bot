@@ -8,7 +8,6 @@ class Player:
     def __init__(self, profile: Profile):
         # self.name = name
         self.profile = profile
-        print(profile)
 
         # temporary, mid game class
         self.hands = [Hand()]  # Karty na każdą rękę
@@ -47,6 +46,7 @@ class Player:
     def deal(self, card1, card2):
         self.hands[0].deal(card1, card2)
         self.is_ready = True
+        self.check()
 
     def add_bet(self, amount):
         self.hands[0].add_bet(amount)
