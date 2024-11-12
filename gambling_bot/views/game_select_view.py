@@ -6,9 +6,9 @@ from gambling_bot.views.table_select_view import TableSelectView
 from gambling_bot.casino import casino
 
 class GameSelectView(View):
-    def __init__(self, interaction, back_view):
+    def __init__(self, interaction, main_view):
         super().__init__(interaction)
-        self.back_view = back_view
+        self.main_view = main_view
 
     def create_buttons(self):
         # blackjack button
@@ -78,4 +78,4 @@ class GameSelectView(View):
         raise NotImplementedError
 
     async def back(self, interaction: discord.Interaction):
-        await self.back_view.edit(interaction)
+        await self.main_view.edit(interaction)

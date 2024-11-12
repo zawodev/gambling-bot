@@ -1,11 +1,13 @@
 import discord
 
+from gambling_bot.core.hand_values import HandValue
+from gambling_bot.models.player import Player
 from gambling_bot.views.view import View
 
 class PlayAgainView(View):
-    def __init__(self, interaction, table, prev_view):
+    def __init__(self, interaction, table, bet_select_view):
         self.table = table
-        self.prev_view = prev_view
+        self.bet_select_view = bet_select_view
         super().__init__(interaction)
 
     def create_buttons(self):
@@ -28,18 +30,47 @@ class PlayAgainView(View):
         return [play_again_button, quit_button]
 
     def create_embeds(self):
+        embeds = []
+
+        # create embed for table type
         embed = discord.Embed(
             title=self.table.table_data['name'],
-            description=f"maybe some player data here?\n"
-                        f"minbet - maxbet: [{self.table.table_data['min_bet']}$ - {self.table.table_data['max_bet']}]$",
-            color=discord.Color.purple()
+            description=self.table.table_data['description'],
+            color=0xffaff0
         )
-        return [embed]
+        embeds.append(embed)
+
+        for player in self.table.players:
+            player: Player
+            player_color = int(player.profile.profile_data['color'])
+
+            for hand in player.hands:
+                hand_value = hand.value()
+                embed = discord.Embed(
+                    title=player,
+                    description=hand,
+                    color=player_color
+                )
+                embed.set_thumbnail(url=HandValue.from_int(hand_value))
+                embeds.append(embed)
+
+        dealer_hand = self.table.dealer.hand
+        dealer_embed = discord.Embed(
+            title=self.table.dealer,
+            description=dealer_hand,
+            color=0xFFFF00
+        )
+        dealer_embed.set_thumbnail(url=HandValue.from_int(dealer_hand.value()))
+        embeds.append(dealer_embed)
+
+        return embeds
 
     # --------- callbacks ---------
 
-    async def play_again(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await self.prev_view.edit(interaction)
+    async def play_again(self, interaction: discord.Interaction):
+        self.bet_select_view.interaction = interaction
+        self.bet_select_view.bet = 0
+        await self.bet_select_view.send()
 
     async def quit(self, interaction: discord.Interaction, button: discord.ui.Button):
         raise NotImplementedError

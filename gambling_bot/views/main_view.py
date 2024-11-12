@@ -3,6 +3,7 @@ import discord
 from gambling_bot.views.stats_view import StatsView
 from gambling_bot.views.view import View
 from gambling_bot.views.game_select_view import GameSelectView
+from gambling_bot.data.txt_manager import load
 
 class MainView(View):
     def __init__(self, interaction):
@@ -38,7 +39,7 @@ class MainView(View):
     def create_embeds(self):
         embed = discord.Embed(
             title="Casino Bot",
-            description=f"wersja: 0.53 alpha - experimental",
+            description=f"wersja: {load('version')}",
             color=discord.Color.orange()
         )
         return [embed]

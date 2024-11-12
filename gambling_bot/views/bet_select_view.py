@@ -6,11 +6,10 @@ from gambling_bot.views.blackjack_table_view import BlackjackTableView
 from gambling_bot.casino import casino
 
 class BetSelectView(View):
-    def __init__(self, interaction, table, table_type, back_view):
+    def __init__(self, interaction, table, table_type):
         self.table = table
         self.table_type = table_type
         self.bet = 0
-        self.back_view = back_view
         self.player_profile = casino.get_player_profile_with_id(str(interaction.user.id))
         super().__init__(interaction)
 
@@ -33,15 +32,6 @@ class BetSelectView(View):
         )
         ready_button.callback = self.ready
         buttons.append(ready_button)
-
-        if self.back_view is not None:
-            back_button = discord.ui.Button(
-                label="back",
-                style=discord.ButtonStyle.red,
-                custom_id="back"
-            )
-            back_button.callback = self.back
-            buttons.append(back_button)
 
         return buttons
 
@@ -89,6 +79,3 @@ class BetSelectView(View):
                 raise NotImplementedError
             case _:
                 raise NotImplementedError
-
-    async def back(self, interaction: discord.Interaction):
-        await self.back_view.edit(interaction)

@@ -8,9 +8,9 @@ from gambling_bot.views.play_again_view import PlayAgainView
 from gambling_bot.views.view import View
 
 class BlackjackTableView(View):
-    def __init__(self, interaction, table: BlackJackTable, back_view):
+    def __init__(self, interaction, table: BlackJackTable, bet_select_view):
         self.table = table
-        self.prev_view = back_view
+        self.bet_select_view = bet_select_view
         super().__init__(interaction)
 
     def create_buttons(self):
@@ -105,49 +105,33 @@ class BlackjackTableView(View):
 
     async def deal(self, interaction: discord.Interaction):
         self.table.deal(interaction.user.id)
-        self.table.do_checks()
-        if self.table.all_stands():
-            view = PlayAgainView(self.interaction, self.table, self.prev_view)
-            await view.edit(self.interaction)
-        else:
-            await self.edit(interaction)
+        await self._check_game_finished(interaction)
 
     async def hit(self, interaction: discord.Interaction):
         self.table.hit(interaction.user.id)
-        self.table.check_all_stands()
-        self.table.check_all_ready()
-        await self.edit(interaction)
-        self.table.check_end_game()
+        await self._check_game_finished(interaction)
 
     async def stand(self, interaction: discord.Interaction):
         self.table.stand(interaction.user.id)
-        self.table.check_all_stands()
-        self.table.check_all_ready()
-        await self.edit(interaction)
-        self.table.check_end_game()
+        await self._check_game_finished(interaction)
 
     async def double(self, interaction: discord.Interaction):
         self.table.double(interaction.user.id)
-        self.table.check_all_stands()
-        self.table.check_all_ready()
-        await self.edit(interaction)
-        self.table.check_end_game()
+        await self._check_game_finished(interaction)
 
     async def split(self, interaction: discord.Interaction):
         self.table.split(interaction.user.id)
-        self.table.check_all_stands()
-        self.table.check_all_ready()
-        await self.edit(interaction)
-        self.table.check_end_game()
+        await self._check_game_finished(interaction)
 
     async def forfeit(self, interaction: discord.Interaction):
         self.table.forfeit(interaction.user.id)
-        self.table.check_all_stands()
-        self.table.check_all_ready()
-        await self.edit(interaction)
-        self.table.check_end_game()
+        await self._check_game_finished(interaction)
 
-    async def on_end(self):
-        if self.table.all_stands():
-            view = PlayAgainView(self.interaction, self.table, self.prev_view)
-            await view.edit(self.interaction)
+    # --------- helpers ---------
+
+    async def _check_game_finished(self, interaction: discord.Interaction):
+        if self.table.is_game_finished:
+            view = PlayAgainView(self.interaction, self.table, self.bet_select_view)
+            await view.edit(interaction)
+        else:
+            await self.edit(interaction)

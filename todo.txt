@@ -28,13 +28,14 @@ BUGS:
 - nazwa stołu się nie wyświetla po dodaniu do bazy danych
 - baza musi aktualizować po zmianie obiekty table itd.
 
--main_view [play, my stats, ranking]
--game_select_view [blackjack, poker] - tytuł bota, wersja bota
--table_select_view [table1, table2] - dobierz do 21, cos tam wygraj wybierz stół z jednego poniżej: table1: minbet: 0, max bet:1 (wszystko to w opisie) [table które są w trakcie gry na szaro]
--bet_select_view [ready, 10, 100, 500, reset] - tablename, playername, chips, bet 
--blackjack_view [hit, stand, split, double, forfeit] - (blackjack info)
--play_again_view [play again, exit]
+- ✅main_view [play, my stats, ranking]
+- ✅game_select_view [blackjack, poker] - tytuł bota, wersja bota
+- ✅table_select_view [table1, table2] - dobierz do 21, cos tam wygraj wybierz stół z jednego poniżej: table1: minbet: 0, max bet:1 (wszystko to w opisie) [table które są w trakcie gry na szaro]
+- ✅bet_select_view [ready, 10, 100, 500, reset] - tablename, playername, chips, bet
+- ✅blackjack_view [hit, stand, split, double, forfeit] - (blackjack info)
+- ✅play_again_view [play again, exit]
 
+- ✅
 class view(discord.view):
 def __init__(interaction)
 	view = get_view()
@@ -42,6 +43,5 @@ def __init__(interaction)
 	interaction.edit_message(embed, self)
 
 -jeśli nikt się długo nie ruszał na stole to odwiesić??? idk najpierw to wyżej
-
 
 -!!! blackjack table view - dodaj ekran play again oraz wyczyść kod !!!!!!!!!!!!
