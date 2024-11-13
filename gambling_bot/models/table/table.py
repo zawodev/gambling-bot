@@ -22,7 +22,7 @@ class Table:
             self.reset_game()
             self.start_game()
 
-        if player is None:
+        if player is None and not self.is_game_started and self.get_player(player_id) is None:
             player = Player(player_profile)
             self.players.append(player)
 
