@@ -14,8 +14,8 @@
 - ✅komendy do resetowania wszystkiego
 - ✅więcej modyfikacji stołu/dealera
 - ??? po co??? komenda do zmiany dealera na stołach
-- a3 panel view powinien się wyświetlać na koniec każdej gry od nowa
-- a3 panel powinien się updatować po wciśnięciu przycisków do betowania
+- ✅a3 panel view powinien się wyświetlać na koniec każdej gry od nowa
+- ✅a3 panel powinien się updatować po wciśnięciu przycisków do betowania
 - ✅/drop database
 
 
@@ -25,8 +25,8 @@ BUGS:
 - ✅po splitcie jak pierwsza reka ma busta to mozesz w nieskonczonosc dobiera
 - ✅drugi bet w splicie
 - jak wszyscy dadzą ready to wciąż da się dołączyć
-- nazwa stołu się nie wyświetla po dodaniu do bazy danych
-- baza musi aktualizować po zmianie obiekty table itd.
+- ✅nazwa stołu się nie wyświetla po dodaniu do bazy danych
+- ✅baza musi aktualizować po zmianie obiekty table itd.
 
 - ✅main_view [play, my stats, ranking]
 - ✅game_select_view [blackjack, poker] - tytuł bota, wersja bota
