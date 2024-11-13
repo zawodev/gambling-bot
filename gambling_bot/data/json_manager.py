@@ -72,3 +72,19 @@ def move_data(src_path, dest_path):
     dest_data[dest_keys[-1]] = src_value
 
     save_data(None, data)
+
+def save_data_raw(path: str = "", data: str = ""):
+    """Zapisuje surowe dane do pliku json w danej ścieżce wewnątrz pliku. Najpierw schodzi w odpowiednie miejsce pliku
+    przy użyciu path, a później SUROWO nadpisuje dane w pliku wstawiając jako tekst wszystko zawarte w data"""
+
+    with open(DATA_FILE_NAME, 'r') as file:
+        exst_data = json.load(file)
+
+    keys = path.split('/')
+    sub_data = exst_data
+    for key in keys[:-1]:
+        sub_data = sub_data.setdefault(key, {})
+    sub_data[keys[-1]] = data
+
+    with open(DATA_FILE_NAME, 'w') as file:
+        json.dump(exst_data, file, indent=4) # noqa

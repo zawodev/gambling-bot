@@ -45,3 +45,7 @@ def __init__(interaction)
 -jeśli nikt się długo nie ruszał na stole to odwiesić??? idk najpierw to wyżej
 
 -!!! blackjack table view - dodaj ekran play again oraz wyczyść kod !!!!!!!!!!!!
+
+
+- dodaj możliwosc dodania tabeli, dicta, str, int przez database_update bo sie nie da beta zmienic
+- mozna wejsc na stol dwa razy jednym gosciem i podczas innej gry
