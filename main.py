@@ -17,10 +17,8 @@ bot = commands.Bot(command_prefix="/", intents=intents)
 
 @bot.event
 async def on_ready():
-
     # ustaw status bota jako niewidoczny
     # await bot.change_presence(status=discord.Status.invisible)
-
     await setup(bot)
 
     print(f'bot zalogowany jako {bot.user}')
