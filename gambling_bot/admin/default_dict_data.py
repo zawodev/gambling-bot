@@ -39,15 +39,15 @@ def create_default_dealers():
 
 def create_default_tables():
     blackjack_data = load_data('tables/blackjack')
-    blackjack_names = ['blackjack1', 'blackjack2']
-    for name in blackjack_names:
+    blackjack_default_data = [('BIG WIN', [100]), ('SMALL WIN', [10])]
+    for name, bets in blackjack_default_data:
         if name not in blackjack_data:
-            blackjack_data[name] = {'name': name}
+            blackjack_data[name] = {'name': name, 'bets': bets}
     save_data('tables/blackjack', blackjack_data)
 
     poker_data = load_data('tables/poker')
-    poker_names = ['poker1', 'poker2']
-    for name in poker_names:
+    poker_default_data = [('BIG WIN', [100]), ('SMALL WIN', [10])]
+    for name, bets in poker_default_data:
         if name not in poker_data:
-            poker_data[name] = {'name': name}
+            poker_data[name] = {'name': name, 'bets': bets}
     save_data('tables/poker', poker_data)
