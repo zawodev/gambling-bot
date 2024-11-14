@@ -43,7 +43,7 @@ class TableSelectView(View):
     def select_table(self, table, table_type):
         async def button_callback(interaction: discord.Interaction):
             view = BetSelectView(interaction, table, table_type)
-            await view.send()
+            await view.send(ephemeral=True)
         return button_callback
 
     async def back(self, interaction: discord.Interaction):

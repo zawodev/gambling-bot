@@ -29,6 +29,10 @@ class View(discord.ui.View):
         await message.edit(content="", embeds=self.embeds, view=self)
         await new_interaction.response.defer()
 
-    async def send(self):
+    async def send(self, ephemeral=False):
         self.refresh()
-        await self.interaction.response.send_message(embeds=self.embeds, view=self)
+        await self.interaction.response.send_message(embeds=self.embeds, view=self, ephemeral=ephemeral)
+
+    async def destroy(self):
+        msg = await self.interaction.original_response()
+        await msg.delete()

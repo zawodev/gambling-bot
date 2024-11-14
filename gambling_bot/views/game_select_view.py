@@ -22,7 +22,7 @@ class GameSelectView(View):
         # poker button
         poker_button = discord.ui.Button(
             label="poker",
-            style=discord.ButtonStyle.green,
+            style=discord.ButtonStyle.gray,
             custom_id="poker"
         )
         poker_button.callback = self.poker
@@ -30,7 +30,7 @@ class GameSelectView(View):
         # roulette button
         roulette_button = discord.ui.Button(
             label="roulette",
-            style=discord.ButtonStyle.green,
+            style=discord.ButtonStyle.gray,
             custom_id="roulette"
         )
         roulette_button.callback = self.roulette
@@ -38,7 +38,7 @@ class GameSelectView(View):
         # slots button
         slots_button = discord.ui.Button(
             label="slots",
-            style=discord.ButtonStyle.green,
+            style=discord.ButtonStyle.gray,
             custom_id="slots"
         )
         slots_button.callback = self.slots

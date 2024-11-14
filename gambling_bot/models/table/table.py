@@ -15,14 +15,12 @@ class Table:
         self.is_game_finished = False
 
     def add_bet_player(self, player_profile: Profile, bet: int):
-        player_id = player_profile.profile_data.path.split('/')[-1]
-        player: Player = self.get_player(player_id)
-
         if self.is_game_finished:
             self.reset_game()
-            self.start_game()
 
         if not self.is_game_started:
+            player_id = player_profile.profile_data.path.split('/')[-1]
+            player: Player = self.get_player(player_id)
             if player is None:
                 player = Player(player_profile)
                 self.players.append(player)
@@ -40,7 +38,7 @@ class Table:
     def check_all_ready(self):
         if self.all_ready():
             self.dealer.hand.is_ready = True
-            self.is_game_started = True
+            self.start_game()
 
     def check_all_stands(self):
         if self.all_stands():
