@@ -70,7 +70,7 @@ class PlayAgainView(View):
     async def play_again(self, interaction: discord.Interaction):
         self.bet_select_view.interaction = interaction
         self.bet_select_view.bet = 0
-        await self.bet_select_view.send()
+        await self.bet_select_view.send(ephemeral=True)
 
-    async def quit(self, interaction: discord.Interaction, button: discord.ui.Button):
-        raise NotImplementedError
+    async def quit(self, interaction: discord.Interaction):
+        await interaction.response.send_message("Not Implemented!", ephemeral=True)
