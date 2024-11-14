@@ -73,18 +73,35 @@ def move_data(src_path, dest_path):
 
     save_data(None, data)
 
-def save_data_raw(path: str = "", data: str = ""):
-    """Zapisuje surowe dane do pliku json w danej ścieżce wewnątrz pliku. Najpierw schodzi w odpowiednie miejsce pliku
-    przy użyciu path, a później SUROWO nadpisuje dane w pliku wstawiając jako tekst wszystko zawarte w data"""
 
-    with open(DATA_FILE_NAME, 'r') as file:
-        exst_data = json.load(file)
+def save_data_raw(path: str, data: str):
+    # sprawdź, czy plik istnieje; jeśli nie, ustaw json_data jako pusty słownik
+    if os.path.exists(DATA_FILE_NAME):
+        with open(DATA_FILE_NAME, 'r') as file:
+            json_data = json.load(file)
+    else:
+        json_data = {}  # tworzy pusty słownik, jeśli plik nie istnieje
 
-    keys = path.split('/')
-    sub_data = exst_data
-    for key in keys[:-1]:
-        sub_data = sub_data.setdefault(key, {})
-    sub_data[keys[-1]] = data
+    if data == "":
+        data = "{}"
 
+    # jeśli path jest pusty, ustaw data jako root json_data
+    if path == "":
+        json_data = json.loads(data)
+    else:
+        # rozdziel ścieżkę na poszczególne klucze
+        keys = path.split('/')
+
+        # przejdź przez klucze, aby dotrzeć do miejsca docelowego
+        temp = json_data
+        for key in keys[:-1]:
+            if key not in temp:
+                temp[key] = {}  # tworzy nowy pod-słownik, jeśli klucz nie istnieje
+            temp = temp[key]
+
+        # aktualizacja ostatniego klucza, parsując data jako JSON
+        temp[keys[-1]] = json.loads(data)
+
+    # zapisz zaktualizowane dane do pliku (tworzy plik, jeśli go nie było)
     with open(DATA_FILE_NAME, 'w') as file:
-        json.dump(exst_data, file, indent=4) # noqa
+        json.dump(json_data, file, indent=4)

@@ -15,20 +15,21 @@ class Table:
         self.is_game_finished = False
 
     def add_bet_player(self, player_profile: Profile, bet: int):
-        player_id = player_profile.profile_data.path[-1]
+        player_id = player_profile.profile_data.path.split('/')[-1]
         player: Player = self.get_player(player_id)
 
         if self.is_game_finished:
             self.reset_game()
             self.start_game()
 
-        if player is None and not self.is_game_started and self.get_player(player_id) is None:
-            player = Player(player_profile)
-            self.players.append(player)
+        if not self.is_game_started:
+            if player is None:
+                player = Player(player_profile)
+                self.players.append(player)
 
-        if not player.is_ready and player.has_chips(bet) and bet > 0:
-            player_profile.transfer_chips(self.dealer.profile, bet)
-            player.add_bet(bet)
+            if not player.is_ready and player.has_chips(bet) and bet > 0:
+                player_profile.transfer_chips(self.dealer.profile, bet)
+                player.add_bet(bet)
 
     # ============ GAME ACTIONS ============
 

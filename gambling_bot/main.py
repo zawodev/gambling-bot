@@ -40,5 +40,5 @@ async def setup(bot):
     # ------- ADMIN COMMANDS -------
     # commands for adding, removing and modyfing data in database from given path
     @bot.tree.command(name="db", description="zarządzaj bazą danych")
-    async def db(interaction: discord.Interaction, operation: OperationType, path: str = None, data: str = None):
+    async def db(interaction: discord.Interaction, operation: OperationType, path: str = "", data: str = ""):
         await database_update.db(interaction, operation, path, data)

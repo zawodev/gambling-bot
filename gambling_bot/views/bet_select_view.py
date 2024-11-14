@@ -66,16 +66,19 @@ class BetSelectView(View):
         return button_callback
 
     async def ready(self, interaction: discord.Interaction):
-        self.table.add_bet_player(self.player_profile, self.bet)
-        match self.table_type:
-            case TableType.BLACKJACK:
-                view = BlackjackTableView(self.interaction, self.table, self)
-                await view.edit(interaction)
-            case TableType.POKER:
-                raise NotImplementedError
-            case TableType.ROULETTE:
-                raise NotImplementedError
-            case TableType.SLOTS:
-                raise NotImplementedError
-            case _:
-                raise NotImplementedError
+        if self.bet > 0:
+            self.table.add_bet_player(self.player_profile, self.bet)
+            match self.table_type:
+                case TableType.BLACKJACK:
+                    view = BlackjackTableView(self.interaction, self.table, self)
+                    await view.edit(interaction)
+                case TableType.POKER:
+                    raise NotImplementedError
+                case TableType.ROULETTE:
+                    raise NotImplementedError
+                case TableType.SLOTS:
+                    raise NotImplementedError
+                case _:
+                    raise NotImplementedError
+        else:
+            await self.edit(interaction)
