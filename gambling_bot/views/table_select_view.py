@@ -1,4 +1,6 @@
 import discord
+
+from gambling_bot.admin.not_implemented_error import game_started_error
 from gambling_bot.views.view import View
 from gambling_bot.views.bet_select_view import BetSelectView
 
@@ -12,9 +14,10 @@ class TableSelectView(View):
     def create_buttons(self):
         buttons = []
         for table in self.tables:
+            #button green if table game not started, grey if started
             button = discord.ui.Button(
                 label=table.table_data['name'],
-                style=discord.ButtonStyle.gray,
+                style=discord.ButtonStyle.green if not table.is_game_started else discord.ButtonStyle.grey,
                 custom_id=str(table.table_data.path)
             )
             button.callback = self.select_table(table, self.table_type)
@@ -31,9 +34,10 @@ class TableSelectView(View):
         return buttons
 
     def create_embeds(self):
+        # print every table in new line as description
         embed = discord.Embed(
             title="Table Select",
-            description="Choose a table",
+            description="\n".join([table.__str__() for table in self.tables]),
             color=discord.Color.orange()
         )
         return [embed]
@@ -42,8 +46,11 @@ class TableSelectView(View):
 
     def select_table(self, table, table_type):
         async def button_callback(interaction: discord.Interaction):
-            view = BetSelectView(interaction, table, table_type)
-            await view.send(ephemeral=True)
+            if table.is_game_started:
+                await game_started_error(interaction)
+            else:
+                view = BetSelectView(interaction, table, table_type)
+                await view.send(ephemeral=True)
         return button_callback
 
     async def back(self, interaction: discord.Interaction):

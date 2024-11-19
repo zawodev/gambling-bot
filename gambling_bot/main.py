@@ -1,6 +1,8 @@
 import discord
 
+from gambling_bot.admin.not_implemented_error import not_implemented_error
 from gambling_bot.admin.operation_type import OperationType
+from gambling_bot.data.json_manager import save_data_raw
 from gambling_bot.models.table.table_type import TableType
 from gambling_bot.views.main_view import MainView
 from gambling_bot.casino import casino
@@ -13,7 +15,14 @@ from gambling_bot.admin.default_dict_data import create_default_dealers, create_
 # blackjack commands: hit, stand, double, split, forfeit
 # poker commands: check, call, raise, fold, all_in
 
+start_data = {
+    "version": "0.63.1",
+    "author": "zawodev"
+}
+
 async def setup(bot):
+    save_data_raw("app/info/version", f'"{start_data['version']}"')
+    save_data_raw("app/info/author", f'"{start_data['author']}"')
     # casino setup
     casino.setup_bot(bot)
     create_default_dealers()
@@ -35,7 +44,7 @@ async def setup(bot):
 
     @bot.tree.command(name="bet", description="postaw zakład")
     async def bet(interaction: discord.Interaction, table_type: TableType, table_name: str, bet_: int):
-        raise NotImplementedError
+        await not_implemented_error(interaction)
 
     # ------- ADMIN COMMANDS -------
     # commands for adding, removing and modyfing data in database from given path

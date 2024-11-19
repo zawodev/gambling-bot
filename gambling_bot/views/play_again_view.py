@@ -1,5 +1,6 @@
 import discord
 
+from gambling_bot.admin.not_implemented_error import not_implemented_error
 from gambling_bot.core.hand_values import HandValue
 from gambling_bot.models.player import Player
 from gambling_bot.views.view import View
@@ -73,4 +74,4 @@ class PlayAgainView(View):
         await self.bet_select_view.send(ephemeral=True)
 
     async def quit(self, interaction: discord.Interaction):
-        await interaction.response.send_message("Not Implemented!", ephemeral=True)
+        await not_implemented_error(interaction)

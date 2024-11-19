@@ -1,5 +1,6 @@
 import discord
 
+from gambling_bot.admin.not_implemented_error import not_implemented_error
 from gambling_bot.core.hand_values import HandValue
 from gambling_bot.models.player import Player
 from gambling_bot.models.table.blackjack_table import BlackJackTable
@@ -93,19 +94,19 @@ class PokerTableView(View):
     # --------- callbacks ---------
 
     async def deal(self, interaction: discord.Interaction):
-        raise NotImplementedError
+        await not_implemented_error(interaction)
 
     async def check(self, interaction: discord.Interaction):
-        raise NotImplementedError
+        await not_implemented_error(interaction)
 
     async def call(self, interaction: discord.Interaction):
-        raise NotImplementedError
+        await not_implemented_error(interaction)
 
     async def raise_(self, interaction: discord.Interaction):
-        raise NotImplementedError
+        await not_implemented_error(interaction)
 
     async def fold(self, interaction: discord.Interaction):
-        raise NotImplementedError
+        await not_implemented_error(interaction)
 
     async def all_in(self, interaction: discord.Interaction):
-        raise NotImplementedError
+        await not_implemented_error(interaction)

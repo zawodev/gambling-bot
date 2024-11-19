@@ -87,3 +87,8 @@ class Table:
 
     def get_all_bets(self):
         return sum(player.get_all_bets() for player in self.players)
+
+    def __str__(self):
+        # print <table name>: [players / ready players]
+        ready_players_len = len([player for player in self.players if player.is_ready])
+        return f"{self.table_data['name']}: [{len(self.players)}/{ready_players_len}] players"
