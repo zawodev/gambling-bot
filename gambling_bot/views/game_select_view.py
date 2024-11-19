@@ -1,5 +1,6 @@
 import discord
 
+from gambling_bot.admin.not_implemented_error import not_implemented_error
 from gambling_bot.models.table.table_type import TableType
 from gambling_bot.views.view import View
 from gambling_bot.views.table_select_view import TableSelectView
@@ -69,13 +70,13 @@ class GameSelectView(View):
         await view.edit(interaction)
 
     async def poker(self, interaction: discord.Interaction):
-        raise NotImplementedError
+        await not_implemented_error(interaction)
 
     async def roulette(self, interaction: discord.Interaction):
-        raise NotImplementedError
+        await not_implemented_error(interaction)
 
     async def slots(self, interaction: discord.Interaction):
-        raise NotImplementedError
+        await not_implemented_error(interaction)
 
     async def back(self, interaction: discord.Interaction):
         await self.main_view.edit(interaction)
