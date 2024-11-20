@@ -52,3 +52,4 @@ def __init__(interaction)
 
 - zmienic color gracza na hex w danych
 - zapisywac historie gier, tak aby dalo sie w jednym ekranie robic wszystko a pozniej wczytac historie
+- usun save data i save data raw wszedzie bo jest lepsze no (i tylko te dwa do wszysktiego cnie)

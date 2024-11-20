@@ -21,6 +21,7 @@ class ProfileData(DictData):
             "stands": 0,
             "hits": 0,
             "chips": 1000,
+            "freechips": 0,
             "total_won_chips": 0,
             "total_lost_chips": 0,
             "biggest_win": 0,
@@ -33,8 +34,9 @@ class ProfileData(DictData):
             "total_freebets": 0,
             "freebets_won": 0,
             "freebets_lost": 0,
-            "total_games_dates": {},
-            "freebet_dates": {}
+            #"total_games_dates": {},
+            "last_freechips_claim_hour": -1,
+            "games_played_by_date": {} # date: total games played, if more than 0 it is a login
         }
         super().__init__(default_data, data, path)
 

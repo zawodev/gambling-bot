@@ -88,8 +88,5 @@ class Player:
 
     # ------------- HAND ACTIONS -------------
 
-    def has_chips(self, amount: int):
-        return self.profile.has_chips(amount)
-
     def get_current_hand(self):
         return self.hands[self.active_hand]

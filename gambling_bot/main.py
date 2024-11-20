@@ -23,6 +23,7 @@ start_data = {
 async def setup(bot):
     save_data_raw("app/info/version", f'"{start_data['version']}"')
     save_data_raw("app/info/author", f'"{start_data['author']}"')
+    save_data_raw("app/data/freechips", '100')
     # casino setup
     casino.setup_bot(bot)
     create_default_dealers()

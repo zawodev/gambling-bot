@@ -25,7 +25,7 @@ class Table:
                 player = Player(player_profile)
                 self.players.append(player)
 
-            if not player.is_ready and player.has_chips(bet) and bet > 0:
+            if not player.is_ready and player_profile.has_chips(bet) and bet > 0:
                 player_profile.transfer_chips(self.dealer.profile, bet)
                 player.add_bet(bet)
 
