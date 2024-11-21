@@ -8,11 +8,13 @@ class ProfileData(DictData):
         random_color = lambda: ((randint(128, 255) << 16) + (randint(128, 255) << 8) + randint(128, 255))
         default_data = {
             "name": 'Profile',
+            "title": 'gambling noob', # ranga from elo points
             "color": random_color(),
+
             "wins": 0,
             "pushes": 0,
             "losses": 0,
-            "cards_drawn": 0,
+            "cards_drawn": 0, #done
             "hands_played": 0,
             "blackjacks": 0,
             "busts": 0,
@@ -34,7 +36,7 @@ class ProfileData(DictData):
             "total_freebets": 0,
             "freebets_won": 0,
             "freebets_lost": 0,
-            #"total_games_dates": {},
+
             "last_freechips_claim_hour": -1,
             "games_played_by_date": {} # date: total games played, if more than 0 it is a login
         }

@@ -23,9 +23,6 @@ class Profile:
     def has_claimed_free_chips(self):
         return self.profile_data['last_freechips_claim_hour'] == datetime.now().hour
 
-    def when_next_hour_in_minutes(self): #transfer this somewhere else (time module)
-        return 60 - datetime.now().minute
-
     def has_chips(self, amount):
         return self.profile_data['chips'] + self.profile_data['freechips'] >= amount
 

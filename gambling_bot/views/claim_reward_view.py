@@ -4,6 +4,7 @@ from gambling_bot.admin.not_implemented_error import not_implemented_error
 from gambling_bot.data.json_manager import load_data
 from gambling_bot.views.view import View
 from gambling_bot.casino import casino
+from datetime import datetime
 
 class ClaimRewardView(View):
     def __init__(self, interaction, back_view):
@@ -31,18 +32,23 @@ class ClaimRewardView(View):
         return [claim_button, back_button]
 
     def create_embeds(self):
-        embed = discord.Embed(
-            title="Claim Reward",
-            description="You have a reward to claim",
-            color=discord.Color.green()
-        )
-        # print reward claimed if profile.has_claimed_free_chips else print reward to claim and when it can be claimed
-        return [embed]
+        if self.profile.has_claimed_free_chips():
+            return [discord.Embed(
+                title="Reward Claimed",
+                description=f"Next reward ({load_data("app/data/freechips")}$) in: {60 - datetime.now().minute} minutes",
+                color=discord.Color.red()
+            )]
+        else:
+            return [discord.Embed(
+                title=f"Claim Hourly Reward ({load_data("app/data/freechips")}$)",
+                description="You can claim your reward now",
+                color=discord.Color.green()
+            )]
 
     # --------- callbacks ---------
 
     async def claim(self, interaction: discord.Interaction):
-        self.profile.claim_free_chips(load_data("app/data/free_chips"))
+        self.profile.claim_free_chips(load_data("app/data/freechips"))
         await self.edit(interaction)
 
     async def back(self, interaction: discord.Interaction):

@@ -50,6 +50,11 @@ def __init__(interaction)
 - ✅dodaj możliwosc dodania tabeli, dicta, str, int przez database_update bo sie nie da beta zmienic
 - ✅mozna wejsc na stol dwa razy jednym gosciem i podczas innej gry
 
+- ✅freebets
 - zmienic color gracza na hex w danych
 - zapisywac historie gier, tak aby dalo sie w jednym ekranie robic wszystko a pozniej wczytac historie
 - usun save data i save data raw wszedzie bo jest lepsze no (i tylko te dwa do wszysktiego cnie)
+
+- gamemodes (zrob gamemodes view, ale jesli jest tylko jeden to od razu wybrac go)
+- np spin and play lub gambling battles (do kazdej gry sa konkretne gamemody, w innych grach sa inne gamemody)
+- player class dokonczyc staty wszyustkie (na inny plik)

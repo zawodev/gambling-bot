@@ -1,6 +1,4 @@
-from tabnanny import check
 
-from gambling_bot.models.profile.profile import Profile
 from gambling_bot.models.table.table import Table
 from gambling_bot.models.player import Player
 
