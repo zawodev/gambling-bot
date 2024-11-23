@@ -107,29 +107,41 @@ class Hand:
 
 # ------------- AFTER GAME ACTIONS -------------
 
-    def calculate_result(self, dealer_hand):
+    def calculate_result(self, profile, dealer_hand):
         hand_value = self.value()
         dealer_hand_value = dealer_hand.value()
 
         if self.is_forfeit:
+            # profile.profile_data['forfeits'] += 1 # is already incremented in forfeit()
+            profile.profile_data['losses'] += 1
             return HandResult.FORFEIT   # forfeit
         elif dealer_hand_value == 21 and len(dealer_hand.cards) == 2 and hand_value == 21 and len(self.cards) == 2:
+            profile.profile_data['pushes'] += 1
             return HandResult.PUSH      # blackjack push
         elif dealer_hand_value == 21 and len(dealer_hand.cards) == 2:
+            profile.profile_data['losses'] += 1
             return HandResult.LOSE      # dealer blackjack
         elif hand_value > 21:
+            profile.profile_data['busts'] += 1
+            profile.profile_data['losses'] += 1
             return HandResult.LOSE      # bust
         elif hand_value == 21 and len(self.cards) == 2:
+            profile.profile_data['blackjacks'] += 1
+            profile.profile_data['wins'] += 1
             return HandResult.BLACKJACK # blackjack
         elif dealer_hand_value > 21:
+            profile.profile_data['wins'] += 1
             return HandResult.WIN       # dealer bust
         elif hand_value > dealer_hand_value:
+            profile.profile_data['wins'] += 1
             return HandResult.WIN       # win
         elif hand_value == dealer_hand_value:
+            profile.profile_data['pushes'] += 1
             return HandResult.PUSH      # push
         else:
+            profile.profile_data['losses'] += 1
             return HandResult.LOSE      # lose
 
-    def calculate_winnings(self, dealer_hand):
-        self.hand_result = self.calculate_result(dealer_hand)
+    def calculate_winnings(self, profile, dealer_hand):
+        self.hand_result = self.calculate_result(profile, dealer_hand)
         return self.bet * float(self.hand_result)

@@ -42,12 +42,12 @@ def create_default_tables():
     blackjack_default_data = [('BIG WIN', [100, 500]), ('SMALL WIN', [10, 50])]
     for name, bets in blackjack_default_data:
         if name not in blackjack_data:
-            blackjack_data[name] = {'name': name, 'bets': bets}
+            blackjack_data[name] = {'name': name, 'bets': bets, 'type': 'blackjack'}
     save_data('tables/blackjack', blackjack_data)
 
     poker_data = load_data('tables/poker')
     poker_default_data = [('BIG WIN', [100]), ('SMALL WIN', [10])]
     for name, bets in poker_default_data:
         if name not in poker_data:
-            poker_data[name] = {'name': name, 'bets': bets}
+            poker_data[name] = {'name': name, 'bets': bets, 'type': 'poker'}
     save_data('tables/poker', poker_data)

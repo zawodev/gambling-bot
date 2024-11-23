@@ -1,4 +1,4 @@
-from gambling_bot.models.profile.profile_data import ProfileData
+from gambling_bot.models.dict_data.profile_data import ProfileData
 from datetime import datetime
 
 class Profile:
@@ -19,6 +19,7 @@ class Profile:
         if not self.has_claimed_free_chips():
             self.profile_data['freechips'] += amount
             self.profile_data['last_freechips_claim_hour'] = datetime.now().hour
+            self.profile_data['freechips_claimed'] += 1
 
     def has_claimed_free_chips(self):
         return self.profile_data['last_freechips_claim_hour'] == datetime.now().hour
@@ -37,7 +38,17 @@ class Profile:
         else:
             chips += freechips
             freechips = 0
+        chips -= amount
+        other_chips += amount
 
         self.profile_data['freechips'] = freechips
-        self.profile_data['chips'] = chips - amount
-        other.profile_data['chips'] = other_chips + amount
+        self.profile_data['chips'] = chips
+        other.profile_data['chips'] = other_chips
+
+        # ------------------ profile stats ------------------
+        self.profile_data['total_lost_chips'] += amount
+        other.profile_data['total_won_chips'] += amount
+        self.profile_data['biggest_loss'] = max(self.profile_data['biggest_loss'], amount)
+        other.profile_data['biggest_win'] = max(other.profile_data['biggest_win'], amount)
+        self.profile_data['max_chips'] = max(self.profile_data['max_chips'], chips)
+        other.profile_data['max_chips'] = max(other.profile_data['max_chips'], other_chips)

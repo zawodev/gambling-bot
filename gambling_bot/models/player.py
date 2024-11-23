@@ -46,6 +46,7 @@ class Player:
     def deal(self, card1, card2):
         self.hands[0].deal(card1, card2)
         self.profile.profile_data['cards_drawn'] += 2
+        self.profile.profile_data['hands_played'] += 1
         self.is_ready = True
         self.check()
 
@@ -65,21 +66,26 @@ class Player:
 
     def stand(self):
         self.hands[self.active_hand].stand()
+        self.profile.profile_data['stands'] += 1
         if self.split_used:
             self.active_hand = 1
 
     def hit(self, card):
         self.hands[self.active_hand].hit(card)
+        self.profile.profile_data['hits'] += 1
         self.profile.profile_data['cards_drawn'] += 1
         self.check()
 
     def split(self, card1, card2):
         self.hands.append(self.hands[0].split(card1, card2))
+        self.profile.profile_data['splits'] += 1
         self.profile.profile_data['cards_drawn'] += 2
+        self.profile.profile_data['hands_played'] += 1
         self.split_used = True
 
     def double(self, card):
         self.hands[self.active_hand].double(card)
+        self.profile.profile_data['doubles'] += 1
         self.profile.profile_data['cards_drawn'] += 1 # lepiej to chyba zrobic w osobnym pliku jakos idk
         self.check()
         if self.split_used:
@@ -87,6 +93,7 @@ class Player:
 
     def forfeit(self):
         self.hands[self.active_hand].forfeit()
+        self.profile.profile_data['forfeits'] += 1
         if self.split_used:
             self.active_hand = 1
 

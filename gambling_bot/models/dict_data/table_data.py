@@ -6,6 +6,7 @@ class TableData(DictData):
         default_data = {
             'name': "Table",
             'description': "Table description",
+            'type': 'none',
             'bets': [10],
             'color': 14844833,
             'min_bet': 10,

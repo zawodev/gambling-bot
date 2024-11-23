@@ -74,4 +74,7 @@ class PlayAgainView(View):
         await self.bet_select_view.send(ephemeral=True)
 
     async def quit(self, interaction: discord.Interaction):
-        await not_implemented_error(interaction)
+        from gambling_bot.views.main_view import MainView
+        view = MainView(interaction)
+        await view.send()
+
