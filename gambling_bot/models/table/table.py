@@ -1,8 +1,10 @@
-import discord
 from gambling_bot.models.player import Player
 from gambling_bot.models.profile.profile import Profile
-from gambling_bot.models.table.table_data import TableData
+from gambling_bot.models.dict_data.table_data import TableData
 from gambling_bot.models.hand import Hand
+
+from datetime import datetime
+
 
 class Table:
     def __init__(self, dealer, data, path):
@@ -25,7 +27,7 @@ class Table:
                 player = Player(player_profile)
                 self.players.append(player)
 
-            if not player.is_ready and player.has_chips(bet) and bet > 0:
+            if not player.is_ready and player_profile.has_chips(bet) and bet > 0:
                 player_profile.transfer_chips(self.dealer.profile, bet)
                 player.add_bet(bet)
 
@@ -48,10 +50,12 @@ class Table:
 
             for player in self.players:
                 player: Player
+                date_key = datetime.now().strftime("%Y-%m-%d %H:00")
+                player.profile.profile_data.increment(f'games_played_by_date/{date_key}/{self.table_data['type']}')
                 # give players winnings
                 for hand in player.hands:
                     hand: Hand
-                    winnings = int(hand.calculate_winnings(self.dealer.hand))
+                    winnings = int(hand.calculate_winnings(player.profile, self.dealer.hand))
                     self.dealer.profile.transfer_chips(player.profile, winnings)
             self.finish_game()
 

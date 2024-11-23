@@ -22,7 +22,8 @@ class StatsView(View):
     def create_embeds(self):
         embed = discord.Embed(
             title=f"{self.profile.profile_data['name']} stats",
-            description=f"money: {self.profile.profile_data['chips']}",
+            description=f"chips: {self.profile.profile_data['chips']}$\n"
+                        f"freechips: {self.profile.profile_data['freechips']}$",
             color=discord.Color.orange()
         )
         return [embed]

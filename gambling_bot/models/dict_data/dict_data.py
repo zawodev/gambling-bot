@@ -11,7 +11,7 @@ class DictData:
 
     def __getitem__(self, key):
         data = load_data(self.path)
-        return data[key]
+        return data.get(key, {})
 
     def __setitem__(self, key, value):
         data = load_data(self.path)

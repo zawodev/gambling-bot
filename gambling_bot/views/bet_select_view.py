@@ -11,7 +11,6 @@ class BetSelectView(View):
         self.table = table
         self.table_type = table_type
         self.bet = 0
-        self.player_profile = casino.get_player_profile_with_id(str(interaction.user.id))
         super().__init__(interaction)
 
     def create_buttons(self):
@@ -38,10 +37,11 @@ class BetSelectView(View):
 
     def create_embeds(self):
         # wyświetl gracza, nazwę stołu, ilość chipsów gracza oraz bet gracza
+        player_profile = casino.get_player_profile_with_id(str(self.interaction.user.id))
         embed = discord.Embed(
             title=f"{self.table.table_data['name']}",
-            description=f"{self.player_profile.profile_data['name']}:\n"
-                        f"chips: {self.player_profile.profile_data['chips']}\n"
+            description=f"{player_profile.profile_data['name']}:\n"
+                        f"chips: {player_profile.profile_data['chips']}\n"
                         f"bet: {self.bet}\n",
             color=discord.Color.red()
         )
@@ -51,7 +51,8 @@ class BetSelectView(View):
 
     def increment_bet(self, add_bet: int):
         async def button_callback(interaction: discord.Interaction):
-            available_chips = self.player_profile.profile_data['chips']
+            player_profile = casino.get_player_profile_with_id(str(interaction.user.id))
+            available_chips = player_profile.profile_data['chips']
             max_bet = self.table.table_data['max_bet']
             min_bet = self.table.table_data['min_bet']
 
@@ -68,7 +69,8 @@ class BetSelectView(View):
 
     async def ready(self, interaction: discord.Interaction):
         if self.bet > 0:
-            self.table.add_bet_player(self.player_profile, self.bet)
+            player_profile = casino.get_player_profile_with_id(str(interaction.user.id))
+            self.table.add_bet_player(player_profile, self.bet)
             match self.table_type:
                 case TableType.BLACKJACK:
                     view = BlackjackTableView(interaction, self.table, self)

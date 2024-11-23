@@ -15,14 +15,10 @@ from gambling_bot.admin.default_dict_data import create_default_dealers, create_
 # blackjack commands: hit, stand, double, split, forfeit
 # poker commands: check, call, raise, fold, all_in
 
-start_data = {
-    "version": "0.63.1",
-    "author": "zawodev"
-}
-
 async def setup(bot):
-    save_data_raw("app/info/version", f'"{start_data['version']}"')
-    save_data_raw("app/info/author", f'"{start_data['author']}"')
+    save_data_raw("app/info/version", f'"0.63.7"')
+    save_data_raw("app/info/author", f'"zawodev"')
+    save_data_raw("app/data/freechips", '100')
     # casino setup
     casino.setup_bot(bot)
     create_default_dealers()
