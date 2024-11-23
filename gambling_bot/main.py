@@ -16,8 +16,11 @@ from gambling_bot.admin.default_dict_data import create_default_dealers, create_
 # poker commands: check, call, raise, fold, all_in
 
 async def setup(bot):
-    save_data_raw("app/info/version", f'"0.63.7"')
-    save_data_raw("app/info/author", f'"zawodev"')
+    version = "0.63.7"
+    author = "zawodev"
+    bot.change_presence(activity=discord.Game(name=f"gambling bot - v{version} - type /start to play"))
+    save_data_raw("app/info/version", f'"{version}"')
+    save_data_raw("app/info/author", f'"{author}"')
     save_data_raw("app/data/freechips", '100')
     # casino setup
     casino.setup_bot(bot)
@@ -38,9 +41,10 @@ async def setup(bot):
         main_view = MainView(interaction) # noqa
         await main_view.send()
 
-    @bot.tree.command(name="bet", description="postaw zakład")
-    async def bet(interaction: discord.Interaction, table_type: TableType, table_name: str, bet_: int):
-        await not_implemented_error(interaction)
+    @bot.tree.command(name="start", description="rozpocznij grę w kasynie")
+    async def start(interaction: discord.Interaction):
+        main_view = MainView(interaction) # noqa
+        await main_view.send()
 
     # ------- ADMIN COMMANDS -------
     # commands for adding, removing and modyfing data in database from given path
