@@ -19,6 +19,9 @@ class Table:
         self.is_game_started = False
         self.is_game_finished = False
 
+        # from gambling_bot.models.dict_data.table_status import TableStatus
+        #self.table_status = None #instead of is_game_started and is_game_finished
+
         self.last_activity_time = datetime.now()
         asyncio.create_task(self.monitor_activity())
 
@@ -126,4 +129,5 @@ class Table:
         return sum(player.get_all_bets() for player in self.players)
 
     def __str__(self):
+        # emoji = "✅" if self.is_game_started else "❌"
         return f"{self.table_data['name']}: {', '.join([player.profile.profile_data['name'] for player in self.players])}"

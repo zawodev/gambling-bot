@@ -58,3 +58,4 @@ def __init__(interaction)
 - gamemodes (zrob gamemodes view, ale jesli jest tylko jeden to od razu wybrac go)
 - np spin and play lub gambling battles (do kazdej gry sa konkretne gamemody, w innych grach sa inne gamemody)
 - player class dokonczyc staty wszyustkie (na inny plik)
+- table status w table
