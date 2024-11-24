@@ -3,11 +3,11 @@ from gambling_bot.models.dealer.dealer import Dealer
 from gambling_bot.models.table.blackjack_table import BlackJackTable
 from gambling_bot.models.table.poker_table import PokerTable
 from gambling_bot.data.json_manager import load_data
+from gambling_bot.admin.default_dict_data import create_default_dealers, create_default_tables, create_default_app_data
 import random
 
 class Casino:
     def __init__(self):
-        self.bot = None
         self.player_profiles = []
         self.dealer_profiles = []
         self.available_dealers = []
@@ -15,6 +15,10 @@ class Casino:
         self.poker_tables = []
 
     def load_data(self):
+        create_default_app_data()
+        create_default_dealers()
+        create_default_tables()
+
         self.player_profiles = [Profile(player_data, f'profiles/players/{player_key}')
                                 for player_key, player_data in load_data('profiles/players').items()]
         self.dealer_profiles = [Profile(dealer_data, f'profiles/dealers/{dealer_key}')
@@ -27,9 +31,6 @@ class Casino:
                                  for table_key, table_data in load_data('tables/blackjack').items()]
         self.poker_tables = [PokerTable(self.get_random_dealer(), table_data, f'tables/poker/{table_key}')
                              for table_key, table_data in load_data('tables/poker').items()]
-
-    def setup_bot(self, bot):
-        self.bot = bot
 
     def get_random_dealer(self):
         dealer = self.available_dealers.pop()

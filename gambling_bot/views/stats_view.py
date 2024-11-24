@@ -1,6 +1,6 @@
 import discord
 from gambling_bot.views.view import View
-from gambling_bot.casino import casino
+from gambling_bot.models.casino import casino
 
 class StatsView(View):
     def __init__(self, interaction, back_view):
@@ -22,8 +22,7 @@ class StatsView(View):
     def create_embeds(self):
         embed = discord.Embed(
             title=f"{self.profile.profile_data['name']} stats",
-            description=f"chips: {self.profile.profile_data['chips']}$\n"
-                        f"freechips: {self.profile.profile_data['freechips']}$",
+            description=f"{self.profile.profile_data.__str__()}",
             color=discord.Color.orange()
         )
         return [embed]

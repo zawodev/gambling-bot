@@ -3,7 +3,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import os
 
-from gambling_bot.main import setup
+from gambling_bot.setup import setup
 
 # ======================== DISCORD BOT ========================
 
