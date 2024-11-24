@@ -1,32 +1,25 @@
 import discord
 
-from gambling_bot.admin.not_implemented_error import not_implemented_error
 from gambling_bot.admin.operation_type import OperationType
-from gambling_bot.data.json_manager import save_data_raw
-from gambling_bot.models.table.table_type import TableType
+from gambling_bot.data.json_manager import load_data
 from gambling_bot.views.main_view import MainView
-from gambling_bot.casino import casino
+from gambling_bot.models.casino import casino
 from gambling_bot.admin import database_update
 from gambling_bot.admin.default_dict_data import create_default_player_profiles_in_guild
-from gambling_bot.admin.default_dict_data import create_default_dealers, create_default_tables
 
 
 # both commands: bet
 # blackjack commands: hit, stand, double, split, forfeit
 # poker commands: check, call, raise, fold, all_in
+bot_ref = None
 
 async def setup(bot):
-    version = "0.63.7"
-    author = "zawodev"
-    await bot.change_presence(activity=discord.Game(name=f"GAMBLING v{version} (/play to start)"))
-    save_data_raw("app/info/version", f'"{version}"')
-    save_data_raw("app/info/author", f'"{author}"')
-    save_data_raw("app/data/freechips", '100')
     # casino setup
-    casino.setup_bot(bot)
-    create_default_dealers()
-    create_default_tables()
+    global bot_ref
+    bot_ref = bot
+
     casino.load_data()
+    await bot.change_presence(activity=discord.Game(name=f"GAMBLING v{load_data("app/info/version")} (/play to start)"))
 
     # ------- ON INTERACTION -------
 

@@ -3,12 +3,12 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import os
 
-from gambling_bot.main import setup
+from gambling_bot.setup import setup
 
 # ======================== DISCORD BOT ========================
 
 load_dotenv()
-token = os.getenv('DISCORD_TOKEN_TEST')
+token = os.getenv('DISCORD_TOKEN')
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="/", intents=intents)

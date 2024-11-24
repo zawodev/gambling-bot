@@ -9,6 +9,9 @@ class DictData:
         default_data.update(data)
         save_data(self.path, default_data)
 
+    def get_key(self): # from path the last element
+        return self.path.split('/')[-1]
+
     def __getitem__(self, key):
         data = load_data(self.path)
         return data.get(key, {})

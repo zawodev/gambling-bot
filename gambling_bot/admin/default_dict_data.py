@@ -1,6 +1,6 @@
 import discord
 
-from gambling_bot.data.json_manager import load_data, save_data
+from gambling_bot.data.json_manager import load_data, save_data, save_data_raw
 from gambling_bot.models.profile.profile import Profile
 
 
@@ -51,3 +51,13 @@ def create_default_tables():
         if name not in poker_data:
             poker_data[name] = {'name': name, 'bets': bets, 'type': 'poker'}
     save_data('tables/poker', poker_data)
+
+# ---------------- OTHER ----------------
+
+def create_default_app_data():
+    version = "0.63.9"
+    author = "zawodev"
+    freechips = 100
+    save_data_raw("app/info/version", f'"{version}"')
+    save_data_raw("app/info/author", f'"{author}"')
+    save_data_raw("app/data/freechips", f"{freechips}")

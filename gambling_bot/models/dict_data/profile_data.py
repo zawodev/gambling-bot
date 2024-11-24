@@ -48,27 +48,43 @@ class ProfileData(DictData):
 
     def __str__(self):
         return (
-            f"👤 Name: {self.data.get('name')}\n"
-            f"🪙 Hajs: {self.chips}$\n"
-            f"🏆 Wygrane: {self.wins}\n"
-            f"🤝 Remisy: {self.pushes}\n"
-            f"🥺 Porażki: {self.losses}\n"
-            f"🃏 Karty: {self.cards_drawn}\n"
-            f"🤲 Ręce: {self.hands_played}\n"
-            f"🔥 Blackjacks: {self.blackjacks}\n"
-            f"💥 Busts: {self.busts}\n"
-            f"🔁 Double: {self.doubles}\n"
-            f"🔀 Split: {self.splits}\n"
-            f"🛑 Stand: {self.stands}\n"
-            f"👊 Hit: {self.hits}\n"
-            f"🏦 Max hajs: {self.max_chips}$\n"
-            f"🏧 Pożyczki: {self.loans}\n"
-            f"💸 Pożyczki spłacone: {self.loans_paid}\n"
-            f"🎰 Freebety: {self.total_freebets}\n"
-            f"🎰 Freebety wygrane: {self.freebets_won}\n"
-            f"🎰 Freebety przegrane: {self.freebets_lost}\n"
-            f"📅 Gry: {sum(self.total_games_dates)}\n"
-            f"📅 Freebety: {len(self.freebet_dates)}\n"
+            # general data
+            f"👤 name: {self['name']}\n"
+            f"🏆 title: {self['title']}\n"
+            f"🎨 color: {self['color']}\n"
+            f"💰 chips: {self['chips']}$\n"
+            f"🆓 freechips: {self['freechips']}$\n"
+            # blackjack results
+            f"🃏 blackjacks: {self['blackjacks']}\n"
+            f"🏆 wins: {self['wins']}\n"
+            f"🤝 pushes: {self['pushes']}\n"
+            f"👎 losses: {self['losses']}\n"
+            f"💥 busts: {self['busts']}\n"
+            # general stats
+            f"🃏 cards drawn: {self['cards_drawn']}\n"
+            f"🤝 hands played: {self['hands_played']}\n"
+            # blackjack actions
+            f"🔁 doubles: {self['doubles']}\n"
+            f"🔀 splits: {self['splits']}\n"
+            f"🛑 stands: {self['stands']}\n"
+            f"👊 hits: {self['hits']}\n"
+            f"🏳️ forfeits: {self['forfeits']}\n"
+            # chips stats
+            f"💰 total won chips: {self['total_won_chips']}$\n"
+            f"💸 total lost chips: {self['total_lost_chips']}$\n"
+            f"🔝 biggest win: {self['biggest_win']}$\n"
+            f"🔚 biggest loss: {self['biggest_loss']}$\n"
+            f"🔝 max chips: {self['max_chips']}$\n"
+            # loans
+            f"💳 loans taken: {self['loans_taken']}\n"
+            f"💸 loans returned: {self['loans_returned']}\n"
+            f"🔝 biggest loan taken: {self['biggest_loan_taken']}$\n"
+            f"🔝 biggest loan returned: {self['biggest_loan_returned']}$\n"
+            # freechips
+            f"🆓 freechips claimed: {self['freechips_claimed']}\n"
+            f"🕒 last freechips claim hour: {self['last_freechips_claim_hour']}\n"
+            # games played by date
+            f"📅 games played by date: {self['games_played_by_date']}\n"
         )
 
     def increment(self, path):

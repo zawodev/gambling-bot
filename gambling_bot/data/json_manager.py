@@ -74,6 +74,10 @@ def move_data(src_path, dest_path):
     save_data(None, data)
 
 
+
+
+# ============ RAW DATA ============
+
 def save_data_raw(path: str, data: str):
     # sprawdź, czy plik istnieje; jeśli nie, ustaw json_data jako pusty słownik
     if os.path.exists(DATA_FILE_NAME):
@@ -104,4 +108,30 @@ def save_data_raw(path: str, data: str):
 
     # zapisz zaktualizowane dane do pliku (tworzy plik, jeśli go nie było)
     with open(DATA_FILE_NAME, 'w') as file:
-        json.dump(json_data, file, indent=4)
+        json.dump(json_data, file, indent=4) # noqa
+
+def load_data_raw(path: str):  # zwraca string - nie wiem czy sie przyda
+    # sprawdź, czy plik istnieje; jeśli nie, zwróć pusty string
+    if not os.path.exists(DATA_FILE_NAME):
+        return {}
+
+    # wczytaj dane z pliku
+    with open(DATA_FILE_NAME, 'r') as file:
+        json_data = json.load(file)
+
+    # jeśli path jest pusty, zwróć całość jako string
+    if path == "":
+        return json.dumps(json_data, indent=4)
+
+    # rozdziel ścieżkę na poszczególne klucze
+    keys = path.split('/')
+
+    # przejdź przez klucze, aby dotrzeć do miejsca docelowego
+    temp = json_data
+    for key in keys:
+        if key not in temp:
+            return ""  # zwróć pusty string, jeśli klucz nie istnieje
+        temp = temp[key]
+
+    # zwróć dane jako string
+    return json.dumps(temp, indent=4)

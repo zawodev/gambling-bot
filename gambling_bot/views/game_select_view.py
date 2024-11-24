@@ -4,7 +4,7 @@ from gambling_bot.admin.not_implemented_error import not_implemented_error
 from gambling_bot.models.table.table_type import TableType
 from gambling_bot.views.view import View
 from gambling_bot.views.table_select_view import TableSelectView
-from gambling_bot.casino import casino
+from gambling_bot.models.casino import casino
 
 class GameSelectView(View):
     def __init__(self, interaction, main_view):
