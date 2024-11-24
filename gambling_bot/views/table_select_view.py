@@ -46,7 +46,7 @@ class TableSelectView(View):
 
     def select_table(self, table, table_type):
         async def button_callback(interaction: discord.Interaction):
-            if table.is_game_started:
+            if table.is_game_started and not table.is_game_finished:
                 await game_started_error(interaction)
             else:
                 view = BetSelectView(interaction, table, table_type)
