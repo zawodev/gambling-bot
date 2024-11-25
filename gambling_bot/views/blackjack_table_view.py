@@ -3,6 +3,7 @@ import discord
 from gambling_bot.core.hand_values import HandValue
 from gambling_bot.models.player import Player
 from gambling_bot.models.table.blackjack_table import BlackJackTable
+from gambling_bot.models.table.table_status import TableStatus
 from gambling_bot.models.table.table_type import TableType
 from gambling_bot.views.play_again_view import PlayAgainView
 from gambling_bot.views.view import View
@@ -130,8 +131,9 @@ class BlackjackTableView(View):
     # --------- helpers ---------
 
     async def _check_game_finished(self, interaction: discord.Interaction):
-        if self.table.is_game_finished:
+        if self.table.table_status == TableStatus.FINISHED:
             view = PlayAgainView(self.interaction, self.table, self.bet_select_view)
             await view.edit(interaction)
+            self.table.reset_game()
         else:
             await self.edit(interaction)

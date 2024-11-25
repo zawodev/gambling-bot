@@ -15,6 +15,12 @@ class Profile:
             return self.profile_data.path == other.profile_data.path
         return False
 
+    def get_elo_points(self):
+        pass
+
+    def get_elo_title(self):
+        pass
+
     def claim_free_chips(self, amount):
         if not self.has_claimed_free_chips():
             self.profile_data['freechips'] += amount

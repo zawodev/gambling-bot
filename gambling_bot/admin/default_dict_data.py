@@ -55,7 +55,7 @@ def create_default_tables():
 # ---------------- OTHER ----------------
 
 def create_default_app_data():
-    version = "0.63.9"
+    version = "0.64.1"
     author = "zawodev"
     freechips = 100
     save_data_raw("app/info/version", f'"{version}"')

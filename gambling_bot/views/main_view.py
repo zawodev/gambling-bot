@@ -2,6 +2,7 @@ import discord
 
 from gambling_bot.admin.not_implemented_error import not_implemented_error
 from gambling_bot.views.claim_reward_view import ClaimRewardView
+from gambling_bot.views.ranking_view import RankingView
 from gambling_bot.views.stats_view import StatsView
 from gambling_bot.views.view import View
 from gambling_bot.views.game_select_view import GameSelectView
@@ -69,5 +70,5 @@ class MainView(View):
         await view.edit(interaction)
 
     async def ranking(self, interaction: discord.Interaction):
-        await not_implemented_error(interaction)
-        #interaction.response.defer()
+        view = RankingView(self.interaction, self)
+        await view.edit(interaction)

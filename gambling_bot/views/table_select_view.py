@@ -1,6 +1,7 @@
 import discord
 
-from gambling_bot.admin.not_implemented_error import game_started_error
+from gambling_bot.admin.not_implemented_error import game_in_progress_error
+from gambling_bot.models.table.table_status import TableStatus
 from gambling_bot.views.view import View
 from gambling_bot.views.bet_select_view import BetSelectView
 
@@ -17,7 +18,9 @@ class TableSelectView(View):
             #button green if table game not started, grey if started
             button = discord.ui.Button(
                 label=table.table_data['name'],
-                style=discord.ButtonStyle.green if not table.is_game_started else discord.ButtonStyle.grey,
+                style=discord.ButtonStyle.green
+                if table.table_status == TableStatus.WAITING_FOR_PLAYERS else
+                discord.ButtonStyle.grey,
                 custom_id=str(table.table_data.path)
             )
             button.callback = self.select_table(table, self.table_type)
@@ -46,8 +49,8 @@ class TableSelectView(View):
 
     def select_table(self, table, table_type):
         async def button_callback(interaction: discord.Interaction):
-            if table.is_game_started and not table.is_game_finished:
-                await game_started_error(interaction)
+            if table.table_status == TableStatus.IN_PROGRESS:
+                await game_in_progress_error(interaction)
             else:
                 view = BetSelectView(interaction, table, table_type)
                 await view.send(ephemeral=True)
