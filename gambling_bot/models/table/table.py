@@ -41,6 +41,8 @@ class Table:
                 player.add_bet(bet)
                 self.update_activity()
 
+    # ============ PLAYER ACTIONS ============
+
     def update_activity(self):
         self.last_activity_time = datetime.now()
 
