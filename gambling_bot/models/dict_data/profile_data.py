@@ -8,6 +8,7 @@ class ProfileData(DictData):
         random_color = lambda: ((randint(128, 255) << 16) + (randint(128, 255) << 8) + randint(128, 255))
         default_data = {
             "name": 'Profile',
+            "elo": 100, # elo points
             "title": 'gambling noob', # ranga from elo points
             "color": random_color(),
             "chips": 1000,

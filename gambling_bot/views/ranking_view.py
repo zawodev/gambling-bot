@@ -23,11 +23,12 @@ class RankingView(View):
         # weekly ranking - to be implemented
         # monthly ranking - to be implemented
         # all time ranking
-        profiles = casino.get_all_profiles()
+        profiles = casino.player_profiles
+        profiles.sort(key=lambda profile: profile.get_elo_points(), reverse=True)
         embed = discord.Embed(
             title=f"Ranking",
             description=f"{'\n'.join([
-                f"{profile.profile_data['name']}: {profile.get_elo_points()}elo ({profile.get_elo_title()})" 
+                f"{profile.profile_data['name']}: {profile.get_elo_points()} elo ({profile.get_elo_title()})" 
                 for profile in profiles])}",
             color=discord.Color.blurple()
         )
