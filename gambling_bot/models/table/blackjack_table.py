@@ -1,6 +1,6 @@
 
 from gambling_bot.models.table.table import Table
-from gambling_bot.models.player import Player
+from gambling_bot.models.player.player import Player
 
 class BlackJackTable(Table):
     def __init__(self, dealer, data, path):

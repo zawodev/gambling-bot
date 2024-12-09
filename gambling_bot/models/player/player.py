@@ -1,7 +1,5 @@
-import discord
-
 from gambling_bot.models.profile.profile import Profile
-from gambling_bot.models.hand import Hand
+from gambling_bot.models.hand.hand import Hand
 
 
 class Player:

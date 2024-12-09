@@ -1,10 +1,9 @@
 import discord
 
 from gambling_bot.core.hand_values import HandValue
-from gambling_bot.models.player import Player
+from gambling_bot.models.player.player import Player
 from gambling_bot.models.table.blackjack_table import BlackJackTable
 from gambling_bot.models.table.table_status import TableStatus
-from gambling_bot.models.table.table_type import TableType
 from gambling_bot.views.play_again_view import PlayAgainView
 from gambling_bot.views.view import View
 

@@ -1,6 +1,6 @@
-from gambling_bot.models.hand import Hand
+from gambling_bot.models.hand.hand import Hand
 from gambling_bot.models.profile.profile import Profile
-from gambling_bot.models.deck import Deck
+from gambling_bot.models.deck.deck import Deck
 
 class Dealer:
     def __init__(self, profile: Profile):

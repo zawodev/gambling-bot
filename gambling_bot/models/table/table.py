@@ -1,9 +1,9 @@
 import discord
 
-from gambling_bot.models.player import Player
+from gambling_bot.models.player.player import Player
 from gambling_bot.models.profile.profile import Profile
 from gambling_bot.models.dict_data.table_data import TableData
-from gambling_bot.models.hand import Hand
+from gambling_bot.models.hand.hand import Hand
 from gambling_bot.models.table.table_status import TableStatus
 
 import asyncio
