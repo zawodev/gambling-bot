@@ -19,7 +19,7 @@ async def setup(bot):
     bot_ref = bot
 
     casino.load_data()
-    await bot.change_presence(activity=discord.Game(name=f"GAMBLING v{load_data("app/info/version")} (/play to start)"))
+    await bot.change_presence(activity=discord.Game(name=f"in casino /play /watch v{load_data("app/info/version")}"))
 
     # ------- ON INTERACTION -------
 
@@ -34,8 +34,15 @@ async def setup(bot):
         main_view = MainView(interaction) # noqa
         await main_view.send()
 
+    @bot.tree.command(name="watch", description="oglądaj grę w kasynie")
+    async def watch(interaction: discord.Interaction):
+        pass
+
     # ------- ADMIN COMMANDS -------
-    # commands for adding, removing and modyfing data in database from given path
+    # commands for adding, removing and modifying data in database from given path
     @bot.tree.command(name="db", description="zarządzaj bazą danych")
     async def db(interaction: discord.Interaction, operation: OperationType, path: str = "", data: str = ""):
-        await database_update.db(interaction, operation, path, data)
+        if interaction.user.id in (336921078138011650, 380820820466991116):
+            await database_update.db(interaction, operation, path, data)
+        else:
+            await interaction.response.send_message("nie masz uprawnień do użycia tej komendy", ephemeral=True)

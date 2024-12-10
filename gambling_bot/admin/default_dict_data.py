@@ -2,6 +2,7 @@ import discord
 
 from gambling_bot.data.json_manager import load_data, save_data, save_data_raw
 from gambling_bot.models.profile.profile import Profile
+from gambling_bot.core.version import get_current_build_version
 
 
 # ---------------- PLAYER ----------------
@@ -55,7 +56,7 @@ def create_default_tables():
 # ---------------- OTHER ----------------
 
 def create_default_app_data():
-    version = "0.64.1"
+    version = get_current_build_version()
     author = "zawodev"
     freechips = 100
     save_data_raw("app/info/version", f'"{version}"')

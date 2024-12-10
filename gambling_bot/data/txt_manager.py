@@ -10,3 +10,8 @@ def load(file_name: str):
         return data
     except Exception as e:
         raise e
+
+def save(file_name: str, data: str):
+    data_file_name = os.path.join(os.path.dirname(__file__), f"{file_name}.txt")
+    with open(data_file_name, 'w') as file:
+        file.write(data)
