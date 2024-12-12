@@ -2,12 +2,11 @@ import discord
 
 from gambling_bot.admin.operation_type import OperationType
 from gambling_bot.data.json_manager import load_data
-from gambling_bot.views.game_select_view import GameSelectView
 from gambling_bot.models.casino import casino
 from gambling_bot.admin import database_update
 from gambling_bot.admin.default_dict_data import create_default_player_profiles_in_guild
-from gambling_bot.views.menu_view import MenuView
 from gambling_bot.views.start_view import StartView
+from gambling_bot.admin import configure
 
 # both commands: bet
 # blackjack commands: hit, stand, double, split, forfeit
@@ -20,8 +19,9 @@ async def setup(bot):
     bot_ref = bot
 
     casino.load_data()
-    await bot.change_presence(activity=discord.Game(name=f"in casino /play /watch v{load_data("app/info/version")}"))
-
+    await bot.change_presence(activity=discord.Game(name=f"in casino /play v{load_data("app/info/version")}"))
+    await configure.run(bot)
+    
     # ------- ON INTERACTION -------
 
     @bot.event
@@ -49,11 +49,10 @@ async def setup(bot):
         else:
             await interaction.response.send_message("nie masz uprawnień do użycia tej komendy", ephemeral=True)
 
-    @bot.tree.command(name="configure", description="konfiguracja bota")
-    async def configure(interaction: discord.Interaction):
+    @bot.tree.command(name="config", description="konfiguracja bota")
+    async def config(interaction: discord.Interaction):
         if interaction.user.id in (336921078138011650, 380820820466991116):
-            # zapisz do pliku id kanalu na ktorym domyslnie sie builduje
-            pass
+            await configure.configure(interaction)
         else:
             await interaction.response.send_message("nie masz uprawnień do użycia tej komendy", ephemeral=True)
         

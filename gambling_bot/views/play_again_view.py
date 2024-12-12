@@ -3,7 +3,7 @@ import discord
 from gambling_bot.core.hand_values import HandValue
 from gambling_bot.models.player.player import Player
 
-from gambling_bot.views.menu_view import MenuView
+from gambling_bot.views.main_menu_view import MainMenuView
 from gambling_bot.views.view import View
 
 class PlayAgainView(View):
@@ -76,6 +76,6 @@ class PlayAgainView(View):
         await view.send(ephemeral=True)
 
     async def quit(self, interaction: discord.Interaction):
-        view = MenuView(interaction, self.message)
+        view = MainMenuView(interaction, self.message)
         await view.send(ephemeral=True)
 

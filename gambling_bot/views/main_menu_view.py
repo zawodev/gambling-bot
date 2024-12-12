@@ -4,7 +4,7 @@ from gambling_bot.admin.not_implemented_error import not_implemented_error
 from gambling_bot.views.view import View
 from gambling_bot.data.json_manager import load_data
 
-class MenuView(View):
+class MainMenuView(View):
     def __init__(self, interaction, message):
         super().__init__(interaction, message)
 
@@ -16,6 +16,13 @@ class MenuView(View):
             custom_id="play"
         )
         play_button.callback = self.play
+        
+        # play battles button
+        play_battles_button = discord.ui.Button(
+            label="ranked",
+            style=discord.ButtonStyle.green,
+            custom_id="ranked"
+        )
 
         # claim button
         claim_button = discord.ui.Button(
@@ -54,8 +61,8 @@ class MenuView(View):
     # --------- callbacks ---------
 
     async def play(self, interaction: discord.Interaction):
-        from gambling_bot.views.game_select_view import GameSelectView
-        view = GameSelectView(self.interaction, self.message)
+        from gambling_bot.views.game_mode_select_view import GameModeSelectView
+        view = GameModeSelectView(self.interaction, self.message)
         await view.edit(interaction)
 
     async def claim(self, interaction: discord.Interaction):

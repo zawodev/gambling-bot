@@ -1,6 +1,6 @@
 import discord
 
-from gambling_bot.views.menu_view import MenuView
+from gambling_bot.views.main_menu_view import MainMenuView
 from gambling_bot.views.view import View
 from gambling_bot.data.json_manager import load_data
 
@@ -30,6 +30,6 @@ class StartView(View):
     # --------- callbacks ---------
 
     async def start(self, interaction: discord.Interaction):
-        view = MenuView(interaction, self.message)
+        view = MainMenuView(interaction, self.message)
         await view.send(ephemeral=True)
         

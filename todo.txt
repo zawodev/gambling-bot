@@ -61,3 +61,47 @@ def __init__(interaction)
 - zapisywanie historii gier, oraz usuwanie ekranu stolu po 5min po zakonczeniu gry?
 - ephemeral pojedyncze gry, ale main view nie i on jest statyczny i mamy jakieś stałe ref na wiadomosc?
   (updateuje jaki gracz jest online na jakim stole)
+- jesli dane nie istnieja to domyslne dane tworzyc ale jak istnieja to nie ma co tworzyc (boring)
+
+MAIN VIEW:
+a) start
+
+MAIN MENU VIEW: (private)
+a) play
+b) claim reward
+c) my stats
+d) global ranking
+e) settings
+f) help
+
+PLAY VIEW: (private)
+a) cash game
+b) spin and play
+c) gambling battles
+
+CASH GAME VIEW: (private) (gamemode) 
+a) blackjack
+b) poker
+c) roulette
+d) yazy
+e) etc...
+
+SPIIN AND PLAY VIEW: (private) (gamemode)
+a) blackjack
+b) poker
+c) roulette
+d) yazy
+e) etc...
+
+GAMBLING BATTLES VIEW: (private) (gamemode)
+a) blackjack
+b) poker
+c) roulette
+d) yazy
+e) etc...
+
+MY STATS VIEW: (private)
+a) back
+
+GLOBAL RANKING VIEW: (private)
+a) back
