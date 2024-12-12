@@ -58,3 +58,6 @@ def __init__(interaction)
 - np spin and play lub gambling battles (do kazdej gry sa konkretne gamemody, w innych grach sa inne gamemody)
 - player class dokonczyc staty wszyustkie (na inny plik)
 - ✅table status w table
+- zapisywanie historii gier, oraz usuwanie ekranu stolu po 5min po zakonczeniu gry?
+- ephemeral pojedyncze gry, ale main view nie i on jest statyczny i mamy jakieś stałe ref na wiadomosc?
+  (updateuje jaki gracz jest online na jakim stole)

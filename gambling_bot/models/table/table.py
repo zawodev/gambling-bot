@@ -19,7 +19,7 @@ class Table:
             case "blackjack": self.type = TableType.BLACKJACK
             case "poker": self.type = TableType.POKER
             case "roulette": self.type = TableType.ROULETTE
-            case "none": self.type = TableType.NONE
+            case "slots": self.type = TableType.SLOTS
             case _: self.type = TableType.NONE
 
         self.players = []

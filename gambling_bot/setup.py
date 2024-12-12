@@ -29,16 +29,16 @@ async def setup(bot):
         create_default_player_profiles_in_guild(casino, interaction.guild)
 
     # ------- PLAYER COMMANDS -------
+    # play, gamble, start, menu, casino
+    @bot.tree.command(name="play", description="rozpocznij grę w kasynie")
+    async def play(interaction: discord.Interaction):
+        view = StartView(interaction, None)
+        await view.send(ephemeral=False)
 
-    @bot.tree.command(name="menu", description="rozpocznij grę w kasynie")
-    async def menu(interaction: discord.Interaction):
-        menu_view = MenuView(interaction, None) # noqa
-        await menu_view.send(ephemeral=True)
-
-    @bot.tree.command(name="play", description="oglądaj grę w kasynie")
-    async def watch(interaction: discord.Interaction):
-        play_view = GameSelectView(interaction, None) # noqa
-        await play_view.send(interaction)
+    @bot.tree.command(name="gamble", description="rozpocznij grę w kasynie")
+    async def gamble(interaction: discord.Interaction):
+        view = StartView(interaction, None)
+        await view.send(ephemeral=False)
 
     # ------- ADMIN COMMANDS -------
     # commands for adding, removing and modifying data in database from given path
@@ -49,9 +49,11 @@ async def setup(bot):
         else:
             await interaction.response.send_message("nie masz uprawnień do użycia tej komendy", ephemeral=True)
 
-    # ------- CHANNEL COMMANDS -------
-
-    channel = await bot.fetch_channel(1294787218581487656)
-    view = StartView(None, None)
-    await view.send_to_channel(channel)
-
+    @bot.tree.command(name="configure", description="konfiguracja bota")
+    async def configure(interaction: discord.Interaction):
+        if interaction.user.id in (336921078138011650, 380820820466991116):
+            # zapisz do pliku id kanalu na ktorym domyslnie sie builduje
+            pass
+        else:
+            await interaction.response.send_message("nie masz uprawnień do użycia tej komendy", ephemeral=True)
+        
