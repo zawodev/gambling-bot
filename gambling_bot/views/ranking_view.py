@@ -4,10 +4,9 @@ from gambling_bot.views.menu_view import MenuView
 from gambling_bot.views.view import View
 from gambling_bot.models.casino import casino
 
-class StatsView(View):
+class RankingView(View):
     def __init__(self, interaction, message):
         super().__init__(interaction, message)
-        self.profile = casino.get_player_profile_with_id(str(interaction.user.id))
 
     def create_buttons(self):
         # back button
@@ -21,10 +20,18 @@ class StatsView(View):
         return [back_button]
 
     def create_embeds(self):
+        # weekly ranking, monthly ranking, all time ranking
+        # weekly ranking - to be implemented
+        # monthly ranking - to be implemented
+        # all time ranking
+        profiles = casino.player_profiles
+        profiles.sort(key=lambda profile: profile.get_elo_points(), reverse=True)
         embed = discord.Embed(
-            title=f"{self.profile.profile_data['name']} stats",
-            description=f"{self.profile.profile_data.__str__()}",
-            color=discord.Color.orange()
+            title=f"Ranking",
+            description=f"{'\n'.join([
+                f"{profile.profile_data['name']}: {profile.get_elo_points()} elo ({profile.get_elo_title()})" 
+                for profile in profiles])}",
+            color=discord.Color.blurple()
         )
         return [embed]
 

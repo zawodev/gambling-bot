@@ -2,16 +2,13 @@ import discord
 
 from gambling_bot.admin.not_implemented_error import not_implemented_error
 from gambling_bot.core.hand_values import HandValue
-from gambling_bot.models.player import Player
-from gambling_bot.models.table.blackjack_table import BlackJackTable
 from gambling_bot.models.table.poker_table import PokerTable
-from gambling_bot.models.table.table_type import TableType
 from gambling_bot.views.view import View
 
 class PokerTableView(View):
-    def __init__(self, interaction, table: PokerTable):
+    def __init__(self, interaction, message, table: PokerTable):
         self.table = table
-        super().__init__(interaction)
+        super().__init__(interaction, message)
 
     def create_buttons(self):
         # deal button

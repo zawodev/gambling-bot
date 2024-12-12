@@ -1,32 +1,37 @@
 import discord
 
-from gambling_bot.models.player import Player
+from gambling_bot.models.player.player import Player
 from gambling_bot.models.profile.profile import Profile
 from gambling_bot.models.dict_data.table_data import TableData
-from gambling_bot.models.hand import Hand
+from gambling_bot.models.hand.hand import Hand
+from gambling_bot.models.table.table_status import TableStatus
 
 import asyncio
 from datetime import datetime, timedelta
+
+from gambling_bot.models.table.table_type import TableType
 
 
 class Table:
     def __init__(self, dealer, data, path):
         self.table_data = TableData(data, path)
+        match self.table_data['type']:
+            case "blackjack": self.type = TableType.BLACKJACK
+            case "poker": self.type = TableType.POKER
+            case "roulette": self.type = TableType.ROULETTE
+            case "none": self.type = TableType.NONE
+            case _: self.type = TableType.NONE
 
         self.players = []
         self.dealer = dealer
 
-        self.is_game_started = False
-        self.is_game_finished = False
+        self.table_status = TableStatus.WAITING_FOR_PLAYERS
 
         self.last_activity_time = datetime.now()
         asyncio.create_task(self.monitor_activity())
 
     def add_bet_player(self, player_profile: Profile, bet: int):
-        if self.is_game_finished:
-            self.reset_game()
-
-        if not self.is_game_started:
+        if self.table_status == TableStatus.WAITING_FOR_PLAYERS:
             player_id = player_profile.profile_data.path.split('/')[-1]
             player: Player = self.get_player(player_id)
             if player is None:
@@ -38,6 +43,8 @@ class Table:
                 player.add_bet(bet)
                 self.update_activity()
 
+    # ============ PLAYER ACTIONS ============
+
     def update_activity(self):
         self.last_activity_time = datetime.now()
 
@@ -45,7 +52,7 @@ class Table:
         while True:
             await asyncio.sleep(10)
             is_time = datetime.now() - self.last_activity_time > timedelta(minutes=5)
-            if len(self.players) > 0 and not self.is_game_finished and is_time:
+            if len(self.players) > 0 and not self.table_status == TableStatus.FINISHED and is_time:
                 await self.notify_players()
                 self.reset_game()
 
@@ -88,11 +95,10 @@ class Table:
 
     def start_game(self):
         self.dealer.hand.is_ready = True
-        self.is_game_started = True
+        self.table_status = TableStatus.IN_PROGRESS
 
     def reset_game(self):
-        self.is_game_started = False
-        self.is_game_finished = False
+        self.table_status = TableStatus.WAITING_FOR_PLAYERS
         self.players = []
         self.dealer.init()
         self.update_activity()
@@ -112,7 +118,7 @@ class Table:
                 winnings = int(hand.calculate_winnings(player.profile, self.dealer.hand))
                 self.dealer.profile.transfer_chips(player.profile, winnings)
 
-        self.is_game_finished = True
+        self.table_status = TableStatus.FINISHED
 
     # ============ CHECKS ============
 
@@ -125,5 +131,12 @@ class Table:
     def get_all_bets(self):
         return sum(player.get_all_bets() for player in self.players)
 
+    def can_join(self):
+        return self.table_status == TableStatus.WAITING_FOR_PLAYERS or self.table_status == TableStatus.FINISHED
+
     def __str__(self):
-        return f"{self.table_data['name']}: {', '.join([player.profile.profile_data['name'] for player in self.players])}"
+        if self.can_join():
+            emoji = "✅"
+        else:
+            emoji = "❌"
+        return f"{emoji}{self.table_data['name']}: {', '.join([player.profile.profile_data['name'] for player in self.players])}"

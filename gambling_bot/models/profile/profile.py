@@ -1,5 +1,6 @@
 from gambling_bot.models.dict_data.profile_data import ProfileData
 from datetime import datetime
+from gambling_bot.core import ranking
 
 class Profile:
     def __init__(self, data, path):
@@ -14,6 +15,12 @@ class Profile:
         elif isinstance(other, Profile):
             return self.profile_data.path == other.profile_data.path
         return False
+
+    def get_elo_points(self):
+        return ranking.calculate_elo(self)
+
+    def get_elo_title(self):
+        return ranking.get_title_from_elo(self.get_elo_points())
 
     def claim_free_chips(self, amount):
         if not self.has_claimed_free_chips():

@@ -1,15 +1,12 @@
 import discord
 
 from gambling_bot.admin.not_implemented_error import not_implemented_error
-from gambling_bot.views.claim_reward_view import ClaimRewardView
-from gambling_bot.views.stats_view import StatsView
 from gambling_bot.views.view import View
-from gambling_bot.views.game_select_view import GameSelectView
 from gambling_bot.data.json_manager import load_data
 
-class MainView(View):
-    def __init__(self, interaction):
-        super().__init__(interaction)
+class MenuView(View):
+    def __init__(self, interaction, message):
+        super().__init__(interaction, message)
 
     def create_buttons(self):
         # play again button
@@ -57,17 +54,24 @@ class MainView(View):
     # --------- callbacks ---------
 
     async def play(self, interaction: discord.Interaction):
-        view = GameSelectView(self.interaction, self)
+        from gambling_bot.views.game_select_view import GameSelectView
+        view = GameSelectView(self.interaction, self.message)
         await view.edit(interaction)
 
     async def claim(self, interaction: discord.Interaction):
-        view = ClaimRewardView(self.interaction, self)
+        from gambling_bot.views.claim_reward_view import ClaimRewardView
+        view = ClaimRewardView(self.interaction, self.message)
         await view.edit(interaction)
 
     async def stats(self, interaction: discord.Interaction):
-        view = StatsView(self.interaction, self)
+        from gambling_bot.views.stats_view import StatsView
+        view = StatsView(self.interaction, self.message)
         await view.edit(interaction)
 
     async def ranking(self, interaction: discord.Interaction):
         await not_implemented_error(interaction)
-        #interaction.response.defer()
+        return
+        
+        from gambling_bot.views.ranking_view import RankingView
+        view = RankingView(self.interaction, self.message)
+        await view.edit(interaction)

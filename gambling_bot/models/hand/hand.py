@@ -1,4 +1,4 @@
-from gambling_bot.models.hand_result import HandResult
+from gambling_bot.models.hand.hand_result import HandResult
 
 class Hand:
     def __init__(self):
