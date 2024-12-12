@@ -2,14 +2,14 @@ import discord
 
 from gambling_bot.admin.not_implemented_error import not_implemented_error
 from gambling_bot.models.table.table_type import TableType
+from gambling_bot.views.menu_view import MenuView
 from gambling_bot.views.view import View
 from gambling_bot.views.table_select_view import TableSelectView
 from gambling_bot.models.casino import casino
 
 class GameSelectView(View):
-    def __init__(self, interaction, main_view):
-        super().__init__(interaction)
-        self.main_view = main_view
+    def __init__(self, interaction, message):
+        super().__init__(interaction, message)
 
     def create_buttons(self):
         # blackjack button
@@ -66,7 +66,7 @@ class GameSelectView(View):
 
     async def blackjack(self, interaction: discord.Interaction):
         tables = casino.blackjack_tables
-        view = TableSelectView(self.interaction, tables, TableType.BLACKJACK, self)
+        view = TableSelectView(self.interaction, self.message, tables)
         await view.edit(interaction)
 
     async def poker(self, interaction: discord.Interaction):
@@ -79,4 +79,5 @@ class GameSelectView(View):
         await not_implemented_error(interaction)
 
     async def back(self, interaction: discord.Interaction):
-        await self.main_view.edit(interaction)
+        view = MenuView(self.interaction, self.message)
+        await view.edit(interaction)

@@ -6,11 +6,9 @@ from gambling_bot.views.view import View
 from gambling_bot.views.bet_select_view import BetSelectView
 
 class TableSelectView(View):
-    def __init__(self, interaction, tables, table_type, game_select_view):
+    def __init__(self, interaction, message, tables):
         self.tables = tables
-        self.table_type = table_type
-        self.game_select_view = game_select_view
-        super().__init__(interaction)
+        super().__init__(interaction, message)
 
     def create_buttons(self):
         buttons = []
@@ -23,7 +21,7 @@ class TableSelectView(View):
                 discord.ButtonStyle.grey,
                 custom_id=str(table.table_data.path)
             )
-            button.callback = self.select_table(table, self.table_type)
+            button.callback = self.select_table(table)
             buttons.append(button)
 
         back_button = discord.ui.Button(
@@ -47,14 +45,16 @@ class TableSelectView(View):
 
     # --------- callbacks ---------
 
-    def select_table(self, table, table_type):
+    def select_table(self, table):
         async def button_callback(interaction: discord.Interaction):
             if table.table_status == TableStatus.IN_PROGRESS:
                 await game_in_progress_error(interaction)
             else:
-                view = BetSelectView(interaction, table, table_type)
-                await view.send(ephemeral=True)
+                view = BetSelectView(interaction, self.message, table)
+                await view.edit(interaction)
         return button_callback
 
     async def back(self, interaction: discord.Interaction):
-        await self.game_select_view.edit(interaction)
+        from gambling_bot.views.game_select_view import GameSelectView
+        view = GameSelectView(self.interaction, self.message)
+        await view.edit(interaction)

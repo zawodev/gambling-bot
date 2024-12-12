@@ -1,11 +1,12 @@
 import discord
+
+from gambling_bot.views.menu_view import MenuView
 from gambling_bot.views.view import View
 from gambling_bot.models.casino import casino
 
 class RankingView(View):
-    def __init__(self, interaction, back_view):
-        super().__init__(interaction)
-        self.back_view = back_view
+    def __init__(self, interaction, message):
+        super().__init__(interaction, message)
 
     def create_buttons(self):
         # back button
@@ -37,4 +38,5 @@ class RankingView(View):
     # --------- callbacks ---------
 
     async def back(self, interaction: discord.Interaction):
-        await self.back_view.edit(interaction)
+        view = MenuView(self.interaction, self.message)
+        await view.edit(interaction)

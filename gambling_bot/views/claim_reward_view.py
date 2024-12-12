@@ -1,14 +1,14 @@
 import discord
 
 from gambling_bot.data.json_manager import load_data
+from gambling_bot.views.menu_view import MenuView
 from gambling_bot.views.view import View
 from gambling_bot.models.casino import casino
 from datetime import datetime
 
 class ClaimRewardView(View):
-    def __init__(self, interaction, back_view):
-        super().__init__(interaction)
-        self.back_view = back_view
+    def __init__(self, interaction, message):
+        super().__init__(interaction, message)
         self.profile = casino.get_player_profile_with_id(str(interaction.user.id))
 
     def create_buttons(self):
@@ -51,4 +51,5 @@ class ClaimRewardView(View):
         await self.edit(interaction)
 
     async def back(self, interaction: discord.Interaction):
-        await self.back_view.edit(interaction)
+        view = MenuView(self.interaction, self.message)
+        await view.edit(interaction)

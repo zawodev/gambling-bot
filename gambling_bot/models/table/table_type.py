@@ -5,6 +5,7 @@ class TableType(Enum):
     POKER = ("poker", "epicki opis pokera")
     ROULETTE = ("roulette", "epicki opis ruletki")
     SLOTS = ("slots", "epicki opis slotów")
+    NONE = ("none", "epicki opis none")
 
     # gamemodes (zrob gamemodes view, ale jesli jest tylko jeden to od razu wybrac go)
     #SPIN_AND_PLAY = "spin_and_play"

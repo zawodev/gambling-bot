@@ -4,20 +4,19 @@
 -gambling battles
 -system rang (ranking po ilości gamblowania)
 -sklep
--sterowanie reakcjami
--bilans dealera (dzis, tydzien, overall)
--staty per osobe
--png na wyjściu jakieś nwm (pillow, templatki html render pdf)
+-❌sterowanie reakcjami
+-✅bilans dealera (dzis, tydzien, overall)
+-✅staty per osobe
+-❌png na wyjściu jakieś nwm (pillow, templatki html render pdf)
 -pozyczki dla gamblerów (1min bana za każdy pożyczony żeton)
 
 
 - ✅komendy do resetowania wszystkiego
 - ✅więcej modyfikacji stołu/dealera
-- ??? po co??? komenda do zmiany dealera na stołach
+- ❌??? po co??? komenda do zmiany dealera na stołach
 - ✅a3 panel view powinien się wyświetlać na koniec każdej gry od nowa
 - ✅a3 panel powinien się updatować po wciśnięciu przycisków do betowania
 - ✅/drop database
-
 
 BUGS:
 - ✅forfeit nie zwraca kasy
@@ -42,7 +41,7 @@ def __init__(interaction)
 	embed = get_embed()
 	interaction.edit_message(embed, self)
 
--jeśli nikt się długo nie ruszał na stole to odwiesić??? idk najpierw to wyżej
+-✅jeśli nikt się długo nie ruszał na stole to odwiesić??? idk najpierw to wyżej
 
 -✅!!! blackjack table view - dodaj ekran play again oraz wyczyść kod !!!!!!!!!!!!
 
@@ -53,7 +52,7 @@ def __init__(interaction)
 - ✅freebets
 - zmienic color gracza na hex w danych
 - zapisywac historie gier, tak aby dalo sie w jednym ekranie robic wszystko a pozniej wczytac historie
-- usun save data i save data raw wszedzie bo jest lepsze no (i tylko te dwa do wszysktiego cnie)
+- ❌usun save data i save data raw wszedzie bo jest lepsze no (i tylko te dwa do wszysktiego cnie)
 
 - gamemodes (zrob gamemodes view, ale jesli jest tylko jeden to od razu wybrac go)
 - np spin and play lub gambling battles (do kazdej gry sa konkretne gamemody, w innych grach sa inne gamemody)

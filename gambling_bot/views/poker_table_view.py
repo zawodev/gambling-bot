@@ -6,9 +6,9 @@ from gambling_bot.models.table.poker_table import PokerTable
 from gambling_bot.views.view import View
 
 class PokerTableView(View):
-    def __init__(self, interaction, table: PokerTable):
+    def __init__(self, interaction, message, table: PokerTable):
         self.table = table
-        super().__init__(interaction)
+        super().__init__(interaction, message)
 
     def create_buttons(self):
         # deal button

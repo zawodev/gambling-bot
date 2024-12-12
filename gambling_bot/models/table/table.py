@@ -9,10 +9,18 @@ from gambling_bot.models.table.table_status import TableStatus
 import asyncio
 from datetime import datetime, timedelta
 
+from gambling_bot.models.table.table_type import TableType
+
 
 class Table:
     def __init__(self, dealer, data, path):
         self.table_data = TableData(data, path)
+        match self.table_data['type']:
+            case "blackjack": self.type = TableType.BLACKJACK
+            case "poker": self.type = TableType.POKER
+            case "roulette": self.type = TableType.ROULETTE
+            case "none": self.type = TableType.NONE
+            case _: self.type = TableType.NONE
 
         self.players = []
         self.dealer = dealer

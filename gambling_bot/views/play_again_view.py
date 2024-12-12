@@ -2,13 +2,14 @@ import discord
 
 from gambling_bot.core.hand_values import HandValue
 from gambling_bot.models.player.player import Player
+
+from gambling_bot.views.menu_view import MenuView
 from gambling_bot.views.view import View
 
 class PlayAgainView(View):
-    def __init__(self, interaction, table, bet_select_view):
+    def __init__(self, interaction, message, table):
         self.table = table
-        self.bet_select_view = bet_select_view
-        super().__init__(interaction)
+        super().__init__(interaction, message)
 
     def create_buttons(self):
         # play again button
@@ -68,12 +69,13 @@ class PlayAgainView(View):
     # --------- callbacks ---------
 
     async def play_again(self, interaction: discord.Interaction):
-        self.bet_select_view.interaction = interaction
-        self.bet_select_view.bet = 0
-        await self.bet_select_view.send(ephemeral=True)
+        #view = BetSelectView(self.interaction, self.message)
+        #await view.edit(interaction)
+        from gambling_bot.views.bet_select_view import BetSelectView
+        view = BetSelectView(interaction, self.message, self.table)
+        await view.send(ephemeral=True)
 
     async def quit(self, interaction: discord.Interaction):
-        from gambling_bot.views.main_view import MainView
-        view = MainView(interaction)
-        await view.send()
+        view = MenuView(interaction, self.message)
+        await view.send(ephemeral=True)
 

@@ -7,11 +7,11 @@ from gambling_bot.models.table.table_status import TableStatus
 from gambling_bot.views.play_again_view import PlayAgainView
 from gambling_bot.views.view import View
 
+
 class BlackjackTableView(View):
-    def __init__(self, interaction, table: BlackJackTable, bet_select_view):
+    def __init__(self, interaction, message, table: BlackJackTable):
         self.table = table
-        self.bet_select_view = bet_select_view
-        super().__init__(interaction)
+        super().__init__(interaction, message)
 
     def create_buttons(self):
 
@@ -101,38 +101,39 @@ class BlackjackTableView(View):
 
         return embeds
 
+    # --------- helpers ---------
+    
+    async def _action_helper(self, interaction: discord.Interaction, action):
+        player: Player = self.table.get_player(interaction.user.id)
+        if player is None:
+            from gambling_bot.views.bet_select_view import BetSelectView
+            view = BetSelectView(self.interaction, self.message, self.table)
+            await view.edit(interaction)
+        else:
+            action(player)
+            if self.table.table_status == TableStatus.FINISHED:
+                view = PlayAgainView(self.interaction, self.message, self.table)
+                await view.edit(interaction)
+                self.table.reset_game()
+            else:
+                await self.edit(interaction)
+                
     # --------- callbacks ---------
-
+    
     async def deal(self, interaction: discord.Interaction):
-        self.table.deal(interaction.user.id)
-        await self._check_game_finished(interaction)
+        await self._action_helper(interaction, self.table.deal)
 
     async def hit(self, interaction: discord.Interaction):
-        self.table.hit(interaction.user.id)
-        await self._check_game_finished(interaction)
+        await self._action_helper(interaction, self.table.hit)
 
     async def stand(self, interaction: discord.Interaction):
-        self.table.stand(interaction.user.id)
-        await self._check_game_finished(interaction)
+        await self._action_helper(interaction, self.table.stand)
 
     async def double(self, interaction: discord.Interaction):
-        self.table.double(interaction.user.id)
-        await self._check_game_finished(interaction)
+        await self._action_helper(interaction, self.table.double)
 
     async def split(self, interaction: discord.Interaction):
-        self.table.split(interaction.user.id)
-        await self._check_game_finished(interaction)
+        await self._action_helper(interaction, self.table.split)
 
     async def forfeit(self, interaction: discord.Interaction):
-        self.table.forfeit(interaction.user.id)
-        await self._check_game_finished(interaction)
-
-    # --------- helpers ---------
-
-    async def _check_game_finished(self, interaction: discord.Interaction):
-        if self.table.table_status == TableStatus.FINISHED:
-            view = PlayAgainView(self.interaction, self.table, self.bet_select_view)
-            await view.edit(interaction)
-            self.table.reset_game()
-        else:
-            await self.edit(interaction)
+        await self._action_helper(interaction, self.table.forfeit)
